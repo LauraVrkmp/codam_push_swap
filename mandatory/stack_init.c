@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 19:18:59 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 21:47:28 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	insert_item(t_stack *stack, t_item *item)
 	}
 }
 
-static void	create_item(t_stacks *stacks, long number, int position)
+static void	create_item(t_stacks *stacks, long long number, int position)
 {
 	t_item	*item;
 
 	item = malloc(sizeof(t_item));
 	if (item == NULL)
-		init_exit("Malloc failed", stacks);	
+		init_exit("Malloc failed", stacks);
 	item->number = number;
 	item->position = position;
 	item->rank = -1;
@@ -60,14 +60,16 @@ static void	parse_args(int amount, char **arguments, t_stacks *stacks)
 		j = 0;
 		while (j < ft_strlen(arguments[i]))
 		{
-			if ((j == 0 && arguments[i][j] != '-' && !ft_isdigit(arguments[i][j])) || (j > 0 && !ft_isdigit(arguments[i][j])))
+			if ((j == 0 && arguments[i][j] != '-' && \
+!ft_isdigit(arguments[i][j]) && !ft_isdigit(arguments[i][j + 1])) || (j > 0 && \
+!ft_isdigit(arguments[i][j])))
 				init_exit("Error", stacks);
 			j++;
 		}
 		number = ft_atoi_long_long(arguments[i]);
 		if (number > INT_MAX || number < INT_MIN)
 			init_exit("Error", stacks);
-		create_item(stacks, number, i - 1);
+		create_item(stacks, number, i);
 		i++;
 	}
 }

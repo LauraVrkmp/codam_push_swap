@@ -6,13 +6,13 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:32:25 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 19:47:56 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 21:41:40 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	int	num_length(int num)
+static int	num_length(int num)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ void	print_stacks(t_stacks *stacks)
 	int		left_a;
 	int		left_b;
 	int		decr;
-	
+
 	i = 0;
 	if (stacks->a && stacks->b && stacks->a->size < stacks->b->size)
 		largest = stacks->b->size;
@@ -53,8 +53,8 @@ void	print_stacks(t_stacks *stacks)
 		decr = 40;
 		if (stacks->a && left_a + i == largest)
 		{
-			ft_printf("%d", item_a->number);
-			decr -= num_length(item_a->number);
+			ft_printf("%d %d %d", item_a->number, item_a->position, item_a->rank);
+			decr -= num_length(item_a->number) + num_length(item_a->position) + num_length(item_a->rank) + 2;
 			while (decr--)
 				ft_printf(" ");
 			if (stacks->b && left_b + i != largest)
@@ -66,10 +66,10 @@ void	print_stacks(t_stacks *stacks)
 		{
 			if (stacks->a && left_a + i != largest)
 			{
-				while (decr--> 0)
+				while (decr-- > 0)
 					ft_printf(" ");
 			}
-			ft_printf("%d\n", item_b->number);
+			ft_printf("%d %d %d\n", item_b->number, item_b->position, item_b->rank);
 			item_b = item_b->next;
 			left_b--;
 		}

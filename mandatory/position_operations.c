@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap.c                                        :+:    :+:            */
+/*   position_operations.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 23:30:11 by laveerka      ########   odam.nl         */
+/*   Created: 2025/11/25 21:51:33 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/11/25 22:08:32 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	solve(t_stacks *stacks)
+void	position_update(t_stack *stack, char update)
 {
-	
-}
+	int		pos;
+	int		i;
+	t_item	*item;
 
-int	main(int argc, char **argv)
-{
-	t_stacks	*stacks;
-
-	if (argc > 2)
+	pos = 1;	
+	if (update == 'F')
 	{
-		stacks = malloc(sizeof(t_stacks));
-		if (stacks == NULL)
-			init_exit("Malloc failed", NULL);
-		stacks->a = NULL;
-		stacks->b = NULL;
-		input_check_create(argc, argv, stacks);
-		check_dup(stacks);
-		assign_ranks(stacks);
-		solve(stacks);
-		cleanup(stacks);
+		i = 0;
+		item = stack->first;
+		while (i < stack->size)
+		{
+			item->position = pos;
+			item = item->next;
+			pos++;
+			i++;
+		}
 	}
-	return (0);
+	else if (update == 'S')
+	{
+		stack->first->position = 1;
+		stack->first->next->position = 2;
+	}
 }
