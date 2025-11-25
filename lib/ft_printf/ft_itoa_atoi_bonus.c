@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:12 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 15:23:21 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 17:08:53 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_itoa_printf(int signednum, unsigned int unsignednum, char type)
 	return (string);
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi_gnl(const char *nptr)
 {
 	int	result;
 	int	sign;
@@ -100,12 +100,12 @@ int	parse_width_prec(t_flags *type, const char *format)
 
 	if (type->period)
 	{
-		type->precision = ft_atoi(format);
+		type->precision = ft_atoi_gnl(format);
 		intlen = ft_intlen(type->precision);
 	}
 	else
 	{
-		type->width = ft_atoi(format);
+		type->width = ft_atoi_gnl(format);
 		intlen = ft_intlen(type->width);
 	}
 	return (intlen);

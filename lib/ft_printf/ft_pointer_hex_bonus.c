@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:24 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 10:51:00 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 17:07:54 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	write_hex(t_flags *type, char *str, int i)
 	int	prec;
 
 	prec = type->precision;
-	hex_length = ft_strlen(str + i);
+	hex_length = ft_strlen_gnl(str + i);
 	if (type->type == 'p' || (type->hash && str[i] != '0'))
 		hex_length += 2;
 	length = format_start_hex(type, hex_length, str, i);
@@ -94,10 +94,10 @@ int	print_pointer(t_flags *type, va_list arg)
 	ptr = va_arg(arg, void *);
 	if (ptr == NULL)
 	{
-		nill_length = ft_strlen("(nil)");
+		nill_length = ft_strlen_gnl("(nil)");
 		while (type->width > nill_length && !type->minus)
 			length += spacing_zeros(&type->width, ' ');
-		length += write(1, "(nil)", ft_strlen("(nil)"));
+		length += write(1, "(nil)", ft_strlen_gnl("(nil)"));
 		while (type->width > nill_length && type->minus)
 			length += spacing_zeros(&type->width, ' ');
 		return (length);

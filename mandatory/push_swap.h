@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 16:04:14 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 18:55:50 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 typedef struct s_stacks
 {
-	struct s_stack	**a;
-	struct s_stack	**b;	
+	struct s_stack	*a;
+	struct s_stack	*b;	
 }	t_stacks;
 
 typedef struct	s_stack
@@ -36,4 +36,11 @@ typedef struct s_item
 	struct s_item	*prev;
 }	t_item;
 
-void	init_exit(char *message, t_stacks *stacks);
+long long	ft_atoi_long_long(const char *nptr);
+void		check_dup(t_stacks *stacks);
+void		cleanup(t_stacks *stacks);
+void		init_exit(char *message, t_stacks *stacks);
+void		insert_item(t_stack *stack, t_item *item);
+void		input_check_create(int amount, char **arguments, t_stacks *stacks);
+void		push_stack(t_stacks *stacks, char to_stack);
+void		print_stacks(t_stacks *stacks);

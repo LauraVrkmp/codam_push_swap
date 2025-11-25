@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:07 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/24 10:38:47 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 17:07:18 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	print_null(t_flags *type)
 	int	spacing;
 
 	printed = 0;
-	length = ft_strlen("(null)");
+	length = ft_strlen_gnl("(null)");
 	spacing = type->width - length;
 	while (type->period && type->precision < length && type->width > 0)
 		printed += spacing_zeros(&type->width, ' ');
@@ -58,7 +58,7 @@ static int	print_str(t_flags *type, char *str)
 	int	printed;
 
 	printed = 0;
-	length = ft_strlen(str);
+	length = ft_strlen_gnl(str);
 	if (type->period && type->precision == -1)
 		length = 0;
 	if (type->precision >= 0 && type->precision < length)

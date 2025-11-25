@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap.c                                        :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 19:23:30 by laveerka      ########   odam.nl         */
+/*   Created: 2025/11/25 17:47:06 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/11/25 17:49:18 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+long long	ft_atoi_long_long(const char *nptr)
 {
-	t_stacks	*stacks;
+	long long	result;
+	int			sign;
 
-	if (argc > 2)
+	result = 0;
+	sign = 1;
+	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
 	{
-		stacks = malloc(sizeof(t_stacks));
-		if (stacks == NULL)
-			init_exit("Malloc failed", NULL);
-		stacks->a = NULL;
-		stacks->b = NULL;
-		input_check_create(argc, argv, stacks);
-		check_dup(stacks);
-		while (stacks->a->size > 0)
-		{
-			push_stack(stacks, 'B');
-			print_stacks(stacks);
-		}
-		cleanup(stacks);
+		if (*nptr == '-')
+			sign *= -1;
+		nptr++;
+		if (!(ft_isdigit(*nptr)))
+			return (0);
 	}
-	return (0);
+	while (ft_isdigit(*nptr))
+	{
+		result = result * 10 + (*nptr - '0');
+		nptr++;
+	}
+	return (result * sign);
 }

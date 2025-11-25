@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:36 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 15:23:08 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/25 17:08:05 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_bzero(void *s, size_t n);
 size_t	ft_intlen(int n);
 char	*ft_itoa_printf(int signednum, unsigned int unsignednum, char type);
 int		ft_printf(const char *format, ...);
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen_gnl(const char *s);
 int		parse_width_prec(t_flags *type, const char *format);
 int		print_char(t_flags *type, va_list arg);
 int		print_hex(t_flags *type, va_list arg);

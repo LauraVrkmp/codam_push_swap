@@ -6,7 +6,7 @@
 #    By: laveerka <laveerka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/11/25 11:15:01 by laveerka      #+#    #+#                  #
-#    Updated: 2025/11/25 15:04:09 by laveerka      ########   odam.nl          #
+#    Updated: 2025/11/25 19:03:42 by laveerka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
 
 PUSH_SWAP_DIR = ./mandatory
 NAME = push_swap
-FILES = push_swap.c
+FILES = clean_exit.c operations.c push_swap.c stack_init.c utils.c visualize.c
 
 SRCS = $(addprefix $(PUSH_SWAP_DIR)/, $(FILES))
 
