@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   operations.c                                       :+:    :+:            */
+/*   operations_swap_push.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 18:41:34 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 22:11:39 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/26 03:53:17 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	push_stack(t_stacks *stacks, char to_id)
 	push_tranfer(from_stack, to_stack, transfer);
 	position_update(from_stack, 'F');
 	position_update(to_stack, 'F');
+	ft_printf("p%c\n", ft_tolower(to_id));
 }
 
 static void	swap_transfer(t_stack *stack, t_item *first_to_second, \
@@ -76,7 +77,7 @@ t_item *second_to_first)
 	stack->first = second_to_first;
 }
 
-void	swap_stack(t_stacks *stacks, char id)
+void	swap_stack(t_stacks *stacks, char id, int count)
 {
 	t_stack	*stack;
 	t_item	*first_to_second;
@@ -98,10 +99,13 @@ void	swap_stack(t_stacks *stacks, char id)
 	else
 		swap_transfer(stack, first_to_second, second_to_first);
 	position_update(stack, 'S');
+	if (count == 1)
+		ft_printf("s%c\n", ft_tolower(id));
 }
 
 void	swap_both(t_stacks *stacks)
 {
-	swap_stack(stacks, 'A');
-	swap_stack(stacks, 'B');
+	swap_stack(stacks, 'A', 2);
+	swap_stack(stacks, 'B', 2);
+	ft_printf("ss\n");
 }

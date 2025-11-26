@@ -6,7 +6,7 @@
 #    By: laveerka <laveerka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/11/25 11:15:01 by laveerka      #+#    #+#                  #
-#    Updated: 2025/11/25 22:31:45 by laveerka      ########   odam.nl          #
+#    Updated: 2025/11/26 03:29:33 by laveerka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,14 @@ FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
 PUSH_SWAP_DIR = ./mandatory
 NAME = push_swap
 FILES = clean_exit.c determine_rank.c position_operations.c \
-	operations_rotate.c operations_swap_push.c push_swap.c stack_init.c utils.c visualize.c
+	operations_rotate.c operations_swap_push.c push_swap.c solve.c stack_init.c utils.c visualize.c
 
 SRCS = $(addprefix $(PUSH_SWAP_DIR)/, $(FILES))
 
 OBJS_DIR = objs
 OBJS = $(SRCS:$(PUSH_SWAP_DIR)/%.c=$(OBJS_DIR)/%.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(LIBFT_LIB) $(FT_PRINTF_LIB) $(NAME)
 

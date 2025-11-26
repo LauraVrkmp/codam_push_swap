@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 21:47:28 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/26 01:23:44 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_stacks *stacks)
 	stack_b->last = NULL;
 	stacks->b = stack_b;
 	parse_args(amount, arguments, stacks);
+	stacks->total = stacks->a->size;
 }
 
 void	check_dup(t_stacks *stacks)
