@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:47:06 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 20:44:25 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/26 12:58:20 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,52 @@ long long	ft_atoi_long_long(const char *nptr)
 		nptr++;
 	}
 	return (result * sign);
+}
+
+int	check_solved(t_stacks *stacks)
+{
+	int		i;
+	t_item	*current;
+
+	i = 0;
+	current = stacks->a->first;
+	if (stacks->b->size != 0)
+		return (0);
+	while (i < stacks->a->size)
+	{
+		if (current->rank != i + 1)
+			return (0);
+		current = current->next;
+		i++;
+	}
+	return (1);
+}
+
+int	check_ordered_not_sorted(t_stacks *stacks)
+{
+	t_item	*current;
+	int		min;
+	int		i;
+
+	i = 0;
+	min = stacks->total;
+	current = stacks->a->first;
+	while (i < stacks->a->size)
+	{
+		if (current->rank < min)
+			min = current->rank;
+		current = current->next;
+		i++;
+	}
+	while (current->rank != min)
+		current = current->next;
+	i = 0;
+	while (i < stacks->a->size - 1)
+	{
+		if (current->rank > current->next->rank)
+			return (0);
+		current = current->next;
+		i++;
+	}
+	return (1);
 }

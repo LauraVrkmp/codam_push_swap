@@ -6,11 +6,26 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/26 10:45:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/26 10:46:01 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/26 12:57:58 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	rotation_required(t_stacks *stacks, int required)
+{
+	int		pos_one;
+	t_item	*current;
+
+	current = stacks->a->first;
+	while (current->rank != required)
+		current = current->next;
+	pos_one = current->position;
+	if (pos_one <= (stacks->a->size / 2 + 1))
+		return (pos_one - 1);
+	else
+		return (-(stacks->a->size - pos_one + 1));
+}
 
 static void	rotate_to_pos(t_stacks *stacks, int required)
 {
