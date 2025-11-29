@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/26 01:23:44 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/29 19:26:48 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	create_item(t_stacks *stacks, long long number, int position)
 
 	item = malloc(sizeof(t_item));
 	if (item == NULL)
-		init_exit("Malloc failed", stacks);
+		init_exit("Malloc failed", stacks, NULL);
 	item->number = number;
 	item->position = position;
 	item->rank = -1;
@@ -63,12 +63,12 @@ static void	parse_args(int amount, char **arguments, t_stacks *stacks)
 			if ((j == 0 && arguments[i][j] != '-' && \
 !ft_isdigit(arguments[i][j]) && !ft_isdigit(arguments[i][j + 1])) || (j > 0 && \
 !ft_isdigit(arguments[i][j])))
-				init_exit("Error", stacks);
+				init_exit("Error", stacks, NULL);
 			j++;
 		}
 		number = ft_atoi_long_long(arguments[i]);
 		if (number > INT_MAX || number < INT_MIN)
-			init_exit("Error", stacks);
+			init_exit("Error", stacks, NULL);
 		create_item(stacks, number, i);
 		i++;
 	}
@@ -82,7 +82,7 @@ t_stacks *stacks)
 
 	stack_a = malloc(sizeof(t_stack));
 	if (stack_a == NULL)
-		init_exit("Malloc failed", stacks);
+		init_exit("Malloc failed", stacks, NULL);
 	stack_a->size = 0;
 	stack_a->id = 'A';
 	stack_a->first = NULL;
@@ -90,7 +90,7 @@ t_stacks *stacks)
 	stacks->a = stack_a;
 	stack_b = malloc(sizeof(t_stack));
 	if (stack_b == NULL)
-		init_exit("Malloc failed", stacks);
+		init_exit("Malloc failed", stacks, NULL);
 	stack_b->size = 0;
 	stack_b->id = 'B';
 	stack_b->first = NULL;
@@ -116,7 +116,7 @@ void	check_dup(t_stacks *stacks)
 		while (j < stacks->a->size)
 		{
 			if (current->number == compare->number)
-				init_exit("Error", stacks);
+				init_exit("Error", stacks, NULL);
 			compare = compare->next;
 			j++;
 		}

@@ -6,13 +6,13 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 16:00:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 20:46:44 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/29 20:50:19 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	void	free_stack(t_stack *stack)
+static void	free_stack(t_stack *stack)
 {
 	t_item	*item;
 
@@ -26,9 +26,21 @@ static	void	free_stack(t_stack *stack)
 	free(stack);
 }
 
-void	init_exit(char *message, t_stacks *stacks)
+static void	free_operations(t_list **operations)
 {
-	if (!ft_strncmp(message, "Malloc failed", ft_strlen(message)))
+	t_list	*op_item;
+
+	while (*operations)
+	{
+		op_item = *operations;
+		*operations = (*operations)->next;
+		ft_lstdelone(op_item, free);
+	}
+}
+
+void	init_exit(char *message, t_stacks *stacks, t_list **operations)
+{
+if (!ft_strncmp(message, "Malloc failed", ft_strlen(message)))
 		ft_printf("%s\n", message);
 	else if (!ft_strncmp(message, "Error", ft_strlen(message)))
 		ft_printf("%s\n", message);
@@ -40,10 +52,12 @@ void	init_exit(char *message, t_stacks *stacks)
 			free_stack(stacks->b);
 		free(stacks);
 	}
+	if (operations)
+		free_operations(operations);
 	exit(EXIT_FAILURE);
 }
 
-void	cleanup(t_stacks *stacks)
+void	cleanup(t_stacks *stacks, t_list **operations)
 {
 	if (stacks)
 	{
@@ -53,4 +67,6 @@ void	cleanup(t_stacks *stacks)
 			free_stack(stacks->b);
 		free(stacks);
 	}
+	if (operations)
+		free_operations(operations);
 }

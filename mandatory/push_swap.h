@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/26 03:49:26 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/29 20:54:33 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,29 @@ typedef struct s_item
 	struct s_item	*prev;
 }	t_item;
 
+void		add_operation(t_stacks *stacks, char *op, char id, t_list **operations);
 void		assign_ranks(t_stacks *stacks);
 void		check_dup(t_stacks *stacks);
 int			check_ordered_not_sorted(t_stacks *stacks);
 int			check_solved(t_stacks *stacks);
-void		cleanup(t_stacks *stacks);
-void		init_exit(char *message, t_stacks *stacks);
+void		cleanup(t_stacks *stacks, t_list **operations);
+void		init_exit(char *message, t_stacks *stacks, t_list **operations);
 void		insert_item(t_stack *stack, t_item *item);
 void		input_check_create(int amount, char **arguments, t_stacks *stacks);
 long long	ft_atoi_long_long(const char *nptr);
 void		position_update(t_stack *stack, char update);
-void		push_stack(t_stacks *stacks, char to_stack);
+void		push_stack(t_stacks *stacks, char to_stack, t_list **operations);
+void		print_operations(t_list *operations);
 void		print_stacks(t_stacks *stacks);
-void 		reverse_rotate_both(t_stacks *stacks);
-void		reverse_rotate_stack(t_stacks *stacks, char id, int count);
-void		rotate_both(t_stacks *stacks);
-void		rotate_stack(t_stacks *stacks, char id, int count);
+int			required_top(t_stacks *stacks);
+void 		reverse_rotate_both(t_stacks *stacks, t_list **operations);
+void		reverse_rotate_stack(t_stacks *stacks, char id, int count, t_list **operations);
+void		rotate_both(t_stacks *stacks, t_list **operations);
+void		rotate_stack(t_stacks *stacks, char id, int count, t_list **operations);
+void		rotate_to_pos(t_stacks *stacks, int required, t_list **operations);
 int			rotation_required(t_stacks *stacks, int required);
-void		solve_three(t_stacks *stacks);
-void		solve_up_to_five(t_stacks *stacks);
-void		swap_both(t_stacks *stacks);
-void		swap_stack(t_stacks *stacks, char id, int count);
+void		solve_three(t_stacks *stacks, t_list **operations);
+void		solve_up_to_five(t_stacks *stacks, t_list **operations);
+void		solve_up_to_one_hundred(t_stacks *stacks, t_list **operations);
+void		swap_both(t_stacks *stacks, t_list **operations);
+void		swap_stack(t_stacks *stacks, char id, int count, t_list **operations);

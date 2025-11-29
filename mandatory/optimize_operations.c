@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelone_bonus.c                               :+:    :+:            */
+/*   optimize_operations.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/10/14 15:47:12 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 20:47:19 by laveerka      ########   odam.nl         */
+/*   Created: 2025/11/29 20:05:45 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/11/29 20:34:44 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	print_operations(t_list *operations)
 {
-	if (lst == NULL)
-		return ;
-	if (del)
-		del(lst->content);
-	free(lst);
+	t_list	*op_item;
+
+	while (operations)
+	{
+		op_item = operations;
+		ft_printf("%s\n", op_item->content);
+		operations = operations->next;
+	}
 }
-
-/* static void	ft_delete(void *content)
-{
-	free(content);
-}
-
-int	main(void)
-{
-	t_list	*new;
-	char	*content;
-
-	content = ft_strdup("This is the content");
-	new = ft_lstnew(content);
-	ft_lstdelone(new, ft_delete);
-	return (0);
-} */

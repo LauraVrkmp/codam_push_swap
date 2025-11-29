@@ -6,7 +6,7 @@
 #    By: laveerka <laveerka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/11/25 11:15:01 by laveerka      #+#    #+#                  #
-#    Updated: 2025/11/26 03:29:33 by laveerka      ########   odam.nl          #
+#    Updated: 2025/11/29 20:56:42 by laveerka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
 PUSH_SWAP_DIR = ./mandatory
 NAME = push_swap
 FILES = clean_exit.c determine_rank.c position_operations.c \
-	operations_rotate.c operations_swap_push.c push_swap.c solve.c stack_init.c utils.c visualize.c
+	operations_rotate.c operations_swap_push.c optimize_operations.c \
+	push_swap.c solve.c solve_utils.c stack_init.c utils.c visualize.c
 
 SRCS = $(addprefix $(PUSH_SWAP_DIR)/, $(FILES))
 

@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 21:05:47 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 21:47:49 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/29 19:37:32 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	assign_ranks(t_stacks *stacks)
 
 	ranks_array = ft_calloc(stacks->a->size, sizeof(int));
 	if (ranks_array == NULL)
-		init_exit("Malloc failed", stacks);
+		init_exit("Malloc failed", stacks, NULL);
 	rank = 1;
 	current = stacks->a->first;
 	while (rank < (stacks->a->size + 1))

@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:47:06 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/26 12:58:20 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/29 20:31:16 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,42 @@ int	check_ordered_not_sorted(t_stacks *stacks)
 		i++;
 	}
 	return (1);
+}
+
+static t_list	*def_operation(t_list *new, char *op, char id)
+{
+	if (!ft_strncmp(op, "push", ft_strlen("push")) && id == 'A')
+		new = ft_lstnew("pa");
+	else if (!ft_strncmp(op, "push", ft_strlen("push")) && id == 'B')
+		new = ft_lstnew("pb");
+	else if (!ft_strncmp(op, "swap", ft_strlen("swap")) && id == 'A')
+		new = ft_lstnew("sa");
+	else if (!ft_strncmp(op, "swap", ft_strlen("swap")) && id == 'B')
+		new = ft_lstnew("sb");
+	else if (!ft_strncmp(op, "swap both", ft_strlen("swap both")) && id == 'b')
+		new = ft_lstnew("ss");
+	else if (!ft_strncmp(op, "rotate", ft_strlen("rotate")) && id == 'A')
+		new = ft_lstnew("ra");
+	else if (!ft_strncmp(op, "rotate", ft_strlen("rotate")) && id == 'B')
+		new = ft_lstnew("rb");
+	else if (!ft_strncmp(op, "rotate both", ft_strlen("rotate both")) && id == 'b')
+		new = ft_lstnew("rr");
+	else if (!ft_strncmp(op, "reverse rotate", ft_strlen("reverse rotate")) && id == 'A')
+		new = ft_lstnew("rra");
+	else if (!ft_strncmp(op, "reverse rotate", ft_strlen("reverse rotate")) && id == 'B')
+		new = ft_lstnew("rrb");
+	else if (!ft_strncmp(op, "reverse rotate both", ft_strlen("reverse rotate both")) && id == 'b')
+		new = ft_lstnew("rrr");
+	return (new);
+}
+
+void	add_operation(t_stacks *stacks, char *op, char id, t_list **operations)
+{
+	t_list	*new;
+
+	new = NULL;
+	new = def_operation(new, op, id);	
+	if (new == NULL)
+		init_exit("Malloc failed", stacks, operations);
+	ft_lstadd_back(operations, new);
 }
