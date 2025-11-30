@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 16:00:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 20:50:19 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/30 10:49:56 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	free_stack(t_stack *stack)
 {
 	t_item	*item;
 
-	while (stack->size)
+	while (stack->size && stack->first)
 	{
 		item = stack->first;
 		stack->first = stack->first->next;
@@ -34,7 +34,7 @@ static void	free_operations(t_list **operations)
 	{
 		op_item = *operations;
 		*operations = (*operations)->next;
-		ft_lstdelone(op_item, free);
+		ft_lstdelone(op_item, NULL);
 	}
 }
 

@@ -6,18 +6,20 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 20:54:33 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/30 10:49:27 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/ft_printf/ft_printf_bonus.h"
 #include "../lib/libft/libft.h"
 
-typedef struct s_stacks
+typedef struct s_stackss
 {
 	struct s_stack	*a;
 	struct s_stack	*b;
 	int				total;
+	int				chunk_start;
+	int				chunk_end;
 }	t_stacks;
 
 typedef struct s_stack
@@ -37,16 +39,36 @@ typedef struct s_item
 	struct s_item	*prev;
 }	t_item;
 
+typedef struct s_chunk
+{
+	int		high_min;
+	int		high_max;
+	int		mid_min;
+	int		mid_max;
+	int		low_min;
+	int		low_max;
+	char	*current;
+	char	*loc;
+}	t_chunk;
+
+
 void		add_operation(t_stacks *stacks, char *op, char id, t_list **operations);
 void		assign_ranks(t_stacks *stacks);
+void		base_case(t_stacks *stacks, t_chunk *chunk, t_list **operations, int test_base);
+void		calc_chunk(t_chunk *chunk, int start, int end);
 void		check_dup(t_stacks *stacks);
 int			check_ordered_not_sorted(t_stacks *stacks);
 int			check_solved(t_stacks *stacks);
+void		chunk_sorting(t_stacks *stacks, t_chunk *chunk, t_list **operations);
 void		cleanup(t_stacks *stacks, t_list **operations);
 void		init_exit(char *message, t_stacks *stacks, t_list **operations);
 void		insert_item(t_stack *stack, t_item *item);
 void		input_check_create(int amount, char **arguments, t_stacks *stacks);
 long long	ft_atoi_long_long(const char *nptr);
+void		move_from_bottom_a(t_stacks *stacks, t_chunk *chunk, t_list **operations);
+void		move_from_bottom_b(t_stacks *stacks, t_chunk *chunk, t_list **operations);
+void		move_from_top_a(t_stacks *stacks, t_chunk *chunk, t_list **operations);
+void		move_from_top_b(t_stacks *stacks, t_chunk *chunk, t_list **operations);
 void		position_update(t_stack *stack, char update);
 void		push_stack(t_stacks *stacks, char to_stack, t_list **operations);
 void		print_operations(t_list *operations);
@@ -63,3 +85,4 @@ void		solve_up_to_five(t_stacks *stacks, t_list **operations);
 void		solve_up_to_one_hundred(t_stacks *stacks, t_list **operations);
 void		swap_both(t_stacks *stacks, t_list **operations);
 void		swap_stack(t_stacks *stacks, char id, int count, t_list **operations);
+int			test_chunk_size(t_stacks *stacks, t_chunk *chunk);
