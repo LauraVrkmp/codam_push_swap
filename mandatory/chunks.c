@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:37:59 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/30 16:12:10 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 11:19:31 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ void	calc_chunk(t_chunk *chunk, int start, int end)
 	chunk->high_max = end;
 }
 
-static int	number_in_chunk(t_chunk *chunk, t_stack *item_stack, int *low_high)
+static int	number_in_chunk(t_chunk chunk, t_stack *item_stack)
 {
 	t_item	*item;
 	int		save;
 	int		i;
 
 	i = 0;
-	if (!ft_strncmp("TOP_A", chunk->loc, ft_strlen(chunk->loc)) || !ft_strncmp("TOP_B", chunk->loc, ft_strlen(chunk->loc)))
+	if (chunk.location == TOP_A || chunk.location == TOP_B)
 	{
 		item = item_stack->first;
 		save = item->rank;
-		while (item->rank >= low_high[0] && item->rank <= low_high[1])
+		while (item->rank >= chunk.low_min && item->rank <= chunk.high_max)
 		{
 			item = item->next;
 			i++;
@@ -45,7 +45,7 @@ static int	number_in_chunk(t_chunk *chunk, t_stack *item_stack, int *low_high)
 	{
 		item = item_stack->last;
 		save = item->rank;
-		while (item->rank >= low_high[0] && item->rank <= low_high[1])
+		while (item->rank >= chunk.low_min && item->rank <= chunk.high_max)
 		{
 			item = item->prev;
 			i++;
@@ -56,77 +56,70 @@ static int	number_in_chunk(t_chunk *chunk, t_stack *item_stack, int *low_high)
 	return (i);
 }
 
-int	test_chunk_size(t_stacks *stacks, t_chunk *chunk)
+int	test_chunk_size(t_stacks *stacks, t_chunk chunk)
 {
-	int		low_high[2];
 	t_stack	*item_stack;
 
-	if (chunk->high_max - chunk->low_min + 1 <= 2)
-		return (chunk->high_max - chunk->low_min + 1);
-	if (!ft_strncmp("HIGH", chunk->current, ft_strlen(chunk->current)))
-	{
-		low_high[0] = chunk->high_min;
-		low_high[1] = chunk->high_max;
-	}
-	else if (!ft_strncmp("MID", chunk->current, ft_strlen(chunk->current)))
-	{
-		low_high[0] = chunk->mid_min;
-		low_high[1] = chunk->mid_max;
-	}
-	else if (!ft_strncmp("LOW", chunk->current, ft_strlen(chunk->current)))
-	{
-		low_high[0] = chunk->low_min;
-		low_high[1] = chunk->low_max;
-	}
-	if (!ft_strncmp("TOP_A", chunk->loc, ft_strlen(chunk->loc)) || !ft_strncmp("BOTTOM_A", chunk->loc, ft_strlen(chunk->loc)))
+	if (chunk.location == TOP_A || chunk.location == BOTTOM_A)
 		item_stack = stacks->a;
 	else
 		item_stack = stacks->b;
-	return (number_in_chunk(chunk, item_stack, low_high));
+	if (item_stack->size > 0)
+		return (number_in_chunk(chunk, item_stack));
+	return (0);
 }
 
-void	chunk_sorting(t_stacks *stacks, t_chunk *chunk, t_list **operations)
+void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
 {
 	int	test_base;
 
 	if (stacks->a->size == stacks->total)
-		calc_chunk(chunk, 1, stacks->total);
+		calc_chunk(&chunk, 1, stacks->total);
 	test_base = test_chunk_size(stacks, chunk);
-	if (chunk->high_max - chunk->low_min + 1 <= 2)
+	ft_printf("check solved: %d\n", check_solved(stacks));
+	if (chunk.high_max - chunk.low_min == 0 || check_solved(stacks))
 		return (base_case(stacks, chunk, operations, test_base));
 	if (stacks->a->size != stacks->total)
 	{
-		if (!ft_strncmp("HIGH", chunk->current, ft_strlen(chunk->current)))
-			calc_chunk(chunk, chunk->high_min, chunk->high_max);
-		else if (!ft_strncmp("MID", chunk->current, ft_strlen(chunk->current)))
-			calc_chunk(chunk, chunk->mid_min, chunk->mid_max);
+		if (chunk.division == DIV_HIGH)
+			calc_chunk(&chunk, chunk.high_min, chunk.high_max);
+		else if (chunk.division == DIV_MID)
+			calc_chunk(&chunk, chunk.mid_min, chunk.mid_max);
 		else
-			calc_chunk(chunk, chunk->low_min, chunk->low_max);
-	}		
-	if (!ft_strncmp("TOP_A", chunk->loc, ft_strlen(chunk->loc)))
+			calc_chunk(&chunk, chunk.low_min, chunk.low_max);
+	}
+	if (stacks->a->first->rank >= chunk.low_min && stacks->a->first->rank <= chunk.high_max)
+		chunk.location = TOP_A;
+	else if (stacks->a->last->rank >= chunk.low_min && stacks->a->last->rank <= chunk.high_max)
+		chunk.location = BOTTOM_A;
+	else if (stacks->b->first->rank >= chunk.low_min && stacks->b->first->rank <= chunk.high_max)
+		chunk.location = TOP_B;
+	else
+		chunk.location = BOTTOM_B;
+	if (chunk.location == TOP_A)
+		ft_printf("TOP_A\n");
+	else if (chunk.location == BOTTOM_A)
+		ft_printf("BOTTOM_A\n");
+	else if (chunk.location == TOP_B)
+		ft_printf("TOP_B\n");
+	else
+		ft_printf("BOTTOM_B\n");
+	ft_printf("min: %d, max: %d\n", chunk.low_min, chunk.low_max);
+	ft_printf("min: %d, max: %d\n", chunk.mid_min, chunk.mid_max);
+	ft_printf("min: %d, max: %d\n", chunk.high_min, chunk.high_max);
+	if (chunk.location == TOP_A)
 		move_from_top_a(stacks, chunk, operations);
-	else if (!ft_strncmp("TOP_B", chunk->loc, ft_strlen(chunk->loc)))
+	else if (chunk.location == TOP_B)
 		move_from_top_b(stacks, chunk, operations);
-	else if (!ft_strncmp("BOTTOM_A", chunk->loc, ft_strlen(chunk->loc)))
+	else if (chunk.location == BOTTOM_A)
 		move_from_bottom_a(stacks, chunk, operations);
 	else
 		move_from_bottom_b(stacks, chunk, operations);
-	if (stacks->a->first->rank >= chunk->low_min && stacks->a->first->rank <= chunk->high_max)
-		chunk->loc = "TOP_A";
-	else if (stacks->a->last->rank >= chunk->low_min && stacks->a->last->rank <= chunk->high_max)
-		chunk->loc = "BOTTOM_A";
-	else if (stacks->b->first->rank >= chunk->low_min && stacks->b->first->rank <= chunk->high_max)
-		chunk->loc = "TOP_B";
-	else
-		chunk->loc = "BOTTOM_B";
-	ft_printf("chunk loc: %s\n", chunk->loc);
-/* 	chunk->current = "HIGH";
+	chunk.division = DIV_HIGH;
 	chunk_sorting(stacks, chunk, operations);
-	print_stacks(stacks);
-	chunk->current = "MID";
+	//ft_printf("chunk before recursion, min: %d, max: %d\n", chunk.low_min, chunk.high_max);
+	chunk.division = DIV_MID;
 	chunk_sorting(stacks, chunk, operations);
-	print_stacks(stacks);
-	chunk->current = "LOW";
+	chunk.division = DIV_LOW;
 	chunk_sorting(stacks, chunk, operations);
-	print_stacks(stacks); */
 }

@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 18:41:34 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 20:25:23 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 10:41:55 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	push_tranfer(t_stack *from_stack, t_stack *to_stack, \
 t_item *transfer)
 {
-	if (from_stack->size == 0)
+	if (from_stack->size == 1)
 	{
 		from_stack->first = NULL;
 		from_stack->last = NULL;

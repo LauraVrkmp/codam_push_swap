@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 23:56:41 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 04:48:45 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv)
 		input_check_create(argc, argv, stacks);
 		check_dup(stacks);
 		assign_ranks(stacks);
+		print_stacks(stacks);
 		solve(stacks, &operations);
 		print_operations(operations);
 		print_stacks(stacks);

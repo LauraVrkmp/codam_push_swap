@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:32:25 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 21:41:40 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 04:49:02 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	print_stacks(t_stacks *stacks)
 	item_b = stacks->b->first;
 	left_a = stacks->a->size;
 	left_b = stacks->b->size;
+	ft_printf("\n");
 	while (i < largest)
 	{
 		decr = 40;

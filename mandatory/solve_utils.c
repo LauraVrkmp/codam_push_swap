@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   solve_operations.c                                 :+:    :+:            */
+/*   solve_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:51:46 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 20:56:29 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 12:43:44 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,54 @@ int	required_top(t_stacks *stacks)
 		return (1);
 	else
 		return (stacks->b->first->rank + 1);
+}
+
+int	section_sorted(t_stacks *stacks, int start, int length)
+{
+	t_item	*item;
+	int		i;
+
+	i = 0;
+	item = stacks->a->first;
+	while (i < length)
+	{
+		ft_printf("item rank: %d, next rank: %d\n", item->rank, item->next->rank);
+		if (item->rank != (start + i) || item->rank + 1 != item->next->rank)
+			return (0);
+		item = item->next;
+		i++;
+	}
+	return (1);
+}
+
+int	rotate_to_order(t_stacks *stacks, t_list **operations)
+{
+	t_item	*item;
+	int		i;
+
+	if (!section_sorted(stacks, stacks->a->first->rank, stacks->a->size - 1))
+	{
+		i = 0;
+		item = stacks->a->first;
+		while (item->rank != stacks->total && i < stacks->a->size)
+		{
+			item = item->next;
+			i++;
+		}
+		i = 0;
+		while (item->rank - 1 == item->prev->rank && i < stacks->a->size)
+		{
+			item = item->prev;
+			i++;
+		}
+		if (i == stacks->a->size - 1)
+		{
+			ft_printf("rotate to order item rank: %d, next rank: %d\n", item->rank, item->prev->rank);
+			ft_printf("rotating\n");
+			rotate_to_pos(stacks, item->rank, operations);
+			print_stacks(stacks);
+			return (1);
+		}
+	}
+	return (0);
 }

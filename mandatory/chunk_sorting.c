@@ -6,113 +6,165 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:38:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/30 15:53:53 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 14:37:25 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	def_min_max(int	*min_max, t_chunk *chunk)
+void	move_from_top_a(t_stacks *stacks, t_chunk chunk, t_list **operations)
 {
-	if (!ft_strncmp("HIGH", chunk->current, ft_strlen(chunk->current)))
-	{
-		min_max[0] = chunk->high_min;
-		min_max[1] = chunk->high_max;
-	}
-	else if (!ft_strncmp("MID", chunk->current, ft_strlen(chunk->current)))
-	{
-		min_max[0] = chunk->mid_min;
-		min_max[1] = chunk->mid_max;
-	}
-	else
-	{
-		min_max[0] = chunk->low_min;
-		min_max[1] = chunk->low_max;
-	}
-}
-
-void	move_from_top_a(t_stacks *stacks, t_chunk *chunk, t_list **operations)
-{
-	int	min_max[2];
 	int	max_op;
-	
-	def_min_max(min_max, chunk);
-	ft_printf("min: %d, max: %d\n", chunk->low_min, chunk->low_max);
-	ft_printf("min: %d, max: %d\n", chunk->mid_min, chunk->mid_max);
-	ft_printf("min: %d, max: %d\n", chunk->high_min, chunk->high_max);
-	ft_printf("chunk size: %d\n", test_chunk_size(stacks, chunk));
+
 	max_op = 0;
-	ft_printf("max rot smaller than: %d\n", min_max[1] - min_max[0] + 1);
-	while (max_op < (chunk->high_max - chunk->low_min + 1) && stacks->a->size > 2)
+	ft_printf("section sorted: %d\n", section_sorted(stacks, stacks->a->first->rank, stacks->a->size - 1));
+	while (!section_sorted(stacks, stacks->a->first->rank, stacks->a->size - 1) && max_op < (chunk.high_max - chunk.low_min + 1) && stacks->a->size > 2 && chunk.low_min != chunk.high_max)
 	{
-		if (stacks->a->first->rank >= chunk->high_min)
-			rotate_stack(stacks, 'A', 1, operations);
-		else
+		
+		if (rotate_to_order(stacks, operations))
+			return ;
+		if ((stacks->a->first->rank >= chunk.high_min && stacks->a->first->rank <= chunk.high_max) || (stacks->a->first->rank == chunk.mid_max && chunk.mid_max + 1 == chunk.high_max) || (stacks->a->first->rank == chunk.low_max && chunk.low_max + 1 == chunk.high_max))
 		{
+			ft_printf("from top A rotate A\n");
+			rotate_stack(stacks, 'A', 1, operations);
+			print_stacks(stacks);
+		}
+		else if ((stacks->a->first->rank >= chunk.low_min && stacks->a->first->rank < chunk.mid_max && chunk.low_min + 1 != chunk.high_max) || (stacks->a->first->rank == chunk.mid_max && chunk.mid_max + 1 != chunk.high_max))
+		{
+			ft_printf("from top A push to B\n");
 			push_stack(stacks, 'B', operations);
-			ft_printf("rank pushed: %d\n", stacks->b->first->rank);
-			if (stacks->b->size > 1)
-				ft_printf("next rank: %d\n", stacks->b->first->next->rank);
-			ft_printf("low_max: %d\n", chunk->low_max);
-			if (stacks->b->first->rank <= chunk->low_max && stacks->b->size > 1 && stacks->b->first->next->rank > chunk->low_max)
-				ft_printf("here\n");
-			if (stacks->b->first->rank <= chunk->low_max && stacks->b->size > 1 && stacks->b->first->next->rank > chunk->low_max)
+			print_stacks(stacks);
+			if (stacks->b->first->rank <= chunk.low_max && stacks->b->size > 1 && stacks->b->first->next->rank > chunk.low_max)
+			{
+				ft_printf("from top A rotate B\n");
 				rotate_stack(stacks, 'B', 1, operations);
+				print_stacks(stacks);
+			}
 		}
 		max_op++;
 	}	
 }
 
-void	move_from_top_b(t_stacks *stacks, t_chunk *chunk, t_list **operations)
+void	move_from_top_b(t_stacks *stacks, t_chunk chunk, t_list **operations)
 {
-	int	min_max[2];
-	
-	def_min_max(min_max, chunk);
-	while (test_chunk_size(stacks, chunk) != (min_max[1] - min_max[0] + 1))
-	{
-		if (stacks->b->first->rank >= chunk->high_min)
-			push_stack(stacks, 'A', operations);
-		else if (stacks->a->first->rank >= chunk->mid_min)
-		{
-			push_stack(stacks, 'B', operations);
-			rotate_stack(stacks, 'A', 1, operations);
-		}
-		else
-			rotate_stack(stacks, 'B', 1, operations);
-	}	
-}
+	int	max_op;
 
-void	move_from_bottom_a(t_stacks *stacks, t_chunk *chunk, t_list **operations)
-{
-	int	min_max[2];
-	
-	def_min_max(min_max, chunk);
-	while (test_chunk_size(stacks, chunk) != (min_max[1] - min_max[0] + 1))
+	max_op = 0;
+	while (max_op < (chunk.high_max - chunk.low_min + 1) && stacks->b->size > 0)
 	{
-		if (stacks->a->last->rank >= chunk->high_min)
-			reverse_rotate_stack(stacks, 'A', 1, operations);
-		else
+		/* if (stacks->a->size > 2 && stacks->a->first->rank - 1 == stacks->a->first->next->rank)
 		{
-			push_stack(stacks, 'B', operations);
-			if (stacks->a->last->rank < chunk->mid_min)
-				rotate_stack(stacks, 'B', 1, operations);
+			ft_printf("from top B swap A\n");
+			swap_stack(stacks, 'A', 1, operations);
+			print_stacks(stacks);
+			return ;
+		} */
+		if (rotate_to_order(stacks, operations))
+			return ;
+		if (stacks->b->size == 2 && stacks->b->first->rank == 1 && stacks->b->first->next->rank == 2)
+		{
+			ft_printf("from top B swap B\n");
+			swap_stack(stacks, 'B', 1, operations);
+			print_stacks(stacks);
+			while (stacks->b->size)
+			{
+				ft_printf("from top B push to A\n");
+				push_stack(stacks, 'B', operations);
+				print_stacks(stacks);
+			}
 		}
-	}	
-}
-
-void	move_from_bottom_b(t_stacks *stacks, t_chunk *chunk, t_list **operations)
-{
-	int	min_max[2];
-	
-	def_min_max(min_max, chunk);
-	while (test_chunk_size(stacks, chunk) != (min_max[1] - min_max[0] + 1))
-	{
-		reverse_rotate_stack(stacks, 'B', 1, operations);
-		if (stacks->b->first->rank >= chunk->mid_min)
+		else if (stacks->b->first->rank >= chunk.high_min && stacks->b->first->rank <= chunk.high_max)
 		{
+			ft_printf("from top B push to A\n");
 			push_stack(stacks, 'A', operations);
-			if (stacks->a->first->rank <= chunk->mid_max)
+			print_stacks(stacks);
+			/* if (stacks->a->first->rank + 1 != stacks->a->first->next->rank)
+			{
+				ft_printf("from top B rotate A\n");
 				rotate_stack(stacks, 'A', 1, operations);
+				print_stacks(stacks);
+			} */
 		}
+		else if ((stacks->b->first->rank >= chunk.mid_min && stacks->b->first->rank <= chunk.mid_max) || chunk.low_min + 1 == chunk.high_max)
+		{
+			ft_printf("from top B push to A\n");
+			push_stack(stacks, 'A', operations);
+			print_stacks(stacks);
+			if (stacks->a->first->rank + 1 != stacks->a->first->next->rank)
+			{
+				ft_printf("from top B rotate A\n");
+				rotate_stack(stacks, 'A', 1, operations);
+				print_stacks(stacks);
+			}
+		}
+		else if (stacks->b->first->rank >= chunk.low_min && stacks->b->first->rank <= chunk.low_max && stacks->b->size > 2)
+		{
+			ft_printf("from top B rotate B\n");
+			rotate_stack(stacks, 'B', 1, operations);
+			print_stacks(stacks);
+		}
+		max_op++;
+	}	
+}
+
+void	move_from_bottom_a(t_stacks *stacks, t_chunk chunk, t_list **operations)
+{
+	int	max_op;
+
+	max_op = 0;
+	if (rotate_to_order(stacks, operations))
+			return ;
+	while (!section_sorted(stacks, chunk.low_min, chunk.high_max - chunk.low_min) && max_op < (chunk.high_max - chunk.low_min + 1))
+	{
+		if (stacks->a->last->rank >= chunk.low_min && stacks->a->last->rank <= chunk.high_max && stacks->a->size > 2)
+		{
+			ft_printf("from bottom A reverse rotate A\n");
+			reverse_rotate_stack(stacks, 'A', 1, operations);
+			print_stacks(stacks);
+			if (stacks->a->first->rank >= chunk.low_min && stacks->a->first->rank <= chunk.mid_max && chunk.low_min != chunk.high_max)
+			{
+				ft_printf("from bottom A push to B\n");
+				push_stack(stacks, 'B', operations);
+				print_stacks(stacks);
+				if (stacks->a->first->rank >= chunk.low_min && stacks->b->first->rank <= chunk.low_max)
+				{
+					ft_printf("from bottom A rotate B\n");
+					rotate_stack(stacks, 'B', 1, operations);
+					print_stacks(stacks);
+				}
+			}
+		}
+		max_op++;
+	}	
+}
+
+void	move_from_bottom_b(t_stacks *stacks, t_chunk chunk, t_list **operations)
+{
+	int	max_op;
+
+	max_op = 0;
+	if (rotate_to_order(stacks, operations))
+		return ;
+	while (max_op < (chunk.high_max - chunk.low_min + 1))
+	{
+		if (stacks->b->last->rank >= chunk.low_min && stacks->b->last->rank <= chunk.high_max)
+		{
+			ft_printf("from bottom B reverse rotate B\n");
+			reverse_rotate_stack(stacks, 'B', 1, operations);
+			print_stacks(stacks);
+			if (stacks->b->first->rank >= chunk.mid_min)
+			{
+				ft_printf("from bottom B push to A\n");
+				push_stack(stacks, 'A', operations);
+				print_stacks(stacks);
+				if (stacks->a->first->rank <= chunk.mid_max && !section_sorted(stacks, stacks->a->first->rank, stacks->a->size - 1))
+				{
+					ft_printf("from bottom B rotate A\n");
+					rotate_stack(stacks, 'A', 1, operations);
+					print_stacks(stacks);
+				}
+			}
+		}
+		max_op++;
 	}	
 }

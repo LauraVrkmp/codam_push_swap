@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/26 10:45:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/30 10:51:57 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/01 00:50:57 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ void	solve_up_to_five(t_stacks *stacks, t_list **operations)
 void	solve_up_to_one_hundred(t_stacks *stacks, t_list **operations)
 {
 	t_chunk	chunk;
-	int		i;
 
-	i = 0;
-	chunk.current = "HIGH";
-	chunk.loc = "TOP_A";
-	while (i++ < 3)
-		chunk_sorting(stacks, &chunk, operations);
+	chunk.division = DIV_HIGH;
+	chunk.location = TOP_A;
+	chunk_sorting(stacks, chunk, operations);
 }
