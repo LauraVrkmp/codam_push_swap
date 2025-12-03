@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:37:59 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/01 11:19:31 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/03 12:13:21 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,19 @@ int	test_chunk_size(t_stacks *stacks, t_chunk chunk)
 	return (0);
 }
 
+static t_loc	determine_location(t_stacks *stacks, t_chunk chunk)
+{
+	int		rot_required[4];
+	t_loc	min_rot;
+
+	rot_required[0] = rotation_required_location(stacks->a, TOP_A, chunk);
+	rot_required[1] = rotation_required_location(stacks->a, BOTTOM_A, chunk);
+	rot_required[2] = rotation_required_location(stacks->b, TOP_B, chunk);
+	rot_required[3] = rotation_required_location(stacks->b, BOTTOM_B, chunk);
+	min_rot = minimum_rotation(rot_required);
+	return (min_rot);
+}
+
 void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
 {
 	int	test_base;
@@ -88,14 +101,15 @@ void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
 		else
 			calc_chunk(&chunk, chunk.low_min, chunk.low_max);
 	}
-	if (stacks->a->first->rank >= chunk.low_min && stacks->a->first->rank <= chunk.high_max)
+	chunk.location = determine_location(stacks, chunk);
+	/* if (stacks->a->first->rank >= chunk.low_min && stacks->a->first->rank <= chunk.high_max)
 		chunk.location = TOP_A;
 	else if (stacks->a->last->rank >= chunk.low_min && stacks->a->last->rank <= chunk.high_max)
 		chunk.location = BOTTOM_A;
 	else if (stacks->b->first->rank >= chunk.low_min && stacks->b->first->rank <= chunk.high_max)
 		chunk.location = TOP_B;
 	else
-		chunk.location = BOTTOM_B;
+		chunk.location = BOTTOM_B; */
 	if (chunk.location == TOP_A)
 		ft_printf("TOP_A\n");
 	else if (chunk.location == BOTTOM_A)
