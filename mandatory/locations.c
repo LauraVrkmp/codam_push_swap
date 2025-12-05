@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/03 11:53:55 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/03 12:13:45 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/05 12:31:34 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_loc	minimum_rotation(int *rot_required)
 	i = 0;
 	while (i < 4)
 	{
-		if (rot_required[i] < smallest)
+		if (rot_required[i] < smallest && rot_required[i] != -1)
 		{
 			smallest = rot_required[i];
 			loc = i;
@@ -39,21 +39,32 @@ int	rotation_required_location(t_stack *stack, int loc, t_chunk chunk)
 	int		stack_size_i;
 
 	stack_size_i = 0;
+	current = NULL;
 	if (loc == TOP_A || loc == TOP_B)
 	{
-		current = stack->first;
-		while ((current->rank < chunk.low_min || current->rank > chunk.high_max) && stack_size_i++ < stack->size)
-			current = current->next;
+		if (stack->first)
+		{
+			current = stack->first;
+			while ((current->rank < chunk.low_min || current->rank > chunk.high_max) && stack_size_i++ < stack->size)
+				current = current->next;
+		}
 	}
 	else
 	{
-		current = stack->last;
-		while ((current->rank < chunk.low_min || current->rank > chunk.high_max) && stack_size_i++ < stack->size)
-			current = current->prev;
+		if (stack->first)
+		{
+			current = stack->last;
+			while ((current->rank < chunk.low_min || current->rank > chunk.high_max) && stack_size_i++ < stack->size)
+				current = current->prev;
+		}
 	}
-	pos_one = current->position;
-	if (pos_one <= (stack->size / 2 + 1))
-		return (pos_one - 1);
-	else
-		return (-(stack->size - pos_one + 1));
+	if (current)
+	{
+		pos_one = current->position;
+		if (pos_one <= (stack->size / 2 + 1))
+			return (pos_one - 1);
+		else
+			return (stack->size - pos_one + 1);
+	}
+	return (-1);
 }
