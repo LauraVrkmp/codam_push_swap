@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/26 10:45:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/01 00:50:57 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/06 07:09:00 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ void	solve_three(t_stacks *stacks, t_list **operations)
 	}
 	else if (stacks->a->first->rank > stacks->a->last->rank && stacks->a->first->next->rank < stacks->a->last->rank)
 		rotate_stack(stacks, 'A', 1, operations);
-	else if (stacks->a->first->rank < stacks->a->first->next->rank && stacks->a->first->next->rank < stacks->a->last->rank)
-	{
-		swap_stack(stacks, 'A', 1, operations);
-		rotate_stack(stacks, 'A', 1, operations);
-	}
 	else
+	{
 		reverse_rotate_stack(stacks, 'A', 1, operations);
+		if (stacks->a->first->rank > stacks->a->first->next->rank)
+			swap_stack(stacks, 'A', 1, operations);
+	}
 }
 
 void	solve_up_to_five(t_stacks *stacks, t_list **operations)

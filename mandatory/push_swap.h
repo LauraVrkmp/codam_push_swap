@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/03 12:14:10 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/06 08:26:04 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		init_exit(char *message, t_stacks *stacks, t_list **operations);
 void		insert_item(t_stack *stack, t_item *item);
 void		input_check_create(int amount, char **arguments, t_stacks *stacks);
 long long	ft_atoi_long_long(const char *nptr);
-t_loc		minimum_rotation(int *rot_required);
+t_loc		minimum_rotation(t_stacks *stacks, int *rot_required, t_chunk chunk);
 void		move_from_bottom_a(t_stacks *stacks, t_chunk chunk, t_list **operations);
 void		move_from_bottom_b(t_stacks *stacks, t_chunk chunk, t_list **operations);
 void		move_from_top_a(t_stacks *stacks, t_chunk chunk, t_list **operations);
@@ -97,7 +97,7 @@ int			rotate_to_order(t_stacks *stacks, t_list **operations);
 void		rotate_to_pos(t_stacks *stacks, int required, t_list **operations);
 int			rotation_required(t_stacks *stacks, int required);
 int			rotation_required_location(t_stack *stack, int loc, t_chunk chunk);
-int			section_sorted(t_stacks *stacks, int start, int length);
+int			section_sorted(t_stacks *stacks, int start, int end, int length);
 void		solve_three(t_stacks *stacks, t_list **operations);
 void		solve_up_to_five(t_stacks *stacks, t_list **operations);
 void		solve_up_to_one_hundred(t_stacks *stacks, t_list **operations);

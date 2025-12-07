@@ -6,13 +6,23 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/03 11:53:55 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/05 12:31:34 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/07 04:31:04 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_loc	minimum_rotation(int *rot_required)
+static t_loc	cheapest_rot(t_stacks *stacks, int loc, int i, t_chunk chunk)
+{
+	if (loc == TOP_B && i == BOTTOM_B)
+	{
+		if (stacks->b->last->rank >= chunk.high_min && stacks->b->last->rank <= chunk.high_max && stacks->b->size != chunk.high_max - chunk.low_min + 1)
+			return (BOTTOM_B);
+	}
+	return (loc);
+}
+
+t_loc	minimum_rotation(t_stacks *stacks, int *rot_required, t_chunk chunk)
 {
 	int		smallest;
 	int		i;
@@ -22,7 +32,9 @@ t_loc	minimum_rotation(int *rot_required)
 	i = 0;
 	while (i < 4)
 	{
-		if (rot_required[i] < smallest && rot_required[i] != -1)
+		if (rot_required[i] == smallest)
+			loc = cheapest_rot(stacks, loc, i, chunk);
+		else if (rot_required[i] < smallest && rot_required[i] != -1)
 		{
 			smallest = rot_required[i];
 			loc = i;
@@ -34,19 +46,23 @@ t_loc	minimum_rotation(int *rot_required)
 
 int	rotation_required_location(t_stack *stack, int loc, t_chunk chunk)
 {
-	int		pos_one;
 	t_item	*current;
 	int		stack_size_i;
+	int		i;
 
 	stack_size_i = 0;
 	current = NULL;
+	i = 1;
 	if (loc == TOP_A || loc == TOP_B)
 	{
 		if (stack->first)
 		{
 			current = stack->first;
 			while ((current->rank < chunk.low_min || current->rank > chunk.high_max) && stack_size_i++ < stack->size)
+			{
 				current = current->next;
+				i++;
+			}
 		}
 	}
 	else
@@ -55,16 +71,15 @@ int	rotation_required_location(t_stack *stack, int loc, t_chunk chunk)
 		{
 			current = stack->last;
 			while ((current->rank < chunk.low_min || current->rank > chunk.high_max) && stack_size_i++ < stack->size)
+			{
 				current = current->prev;
+				i++;
+			}
 		}
 	}
 	if (current)
 	{
-		pos_one = current->position;
-		if (pos_one <= (stack->size / 2 + 1))
-			return (pos_one - 1);
-		else
-			return (stack->size - pos_one + 1);
+		return (i);
 	}
 	return (-1);
 }

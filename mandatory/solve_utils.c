@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:51:46 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/01 12:43:44 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/07 06:06:31 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,20 @@ int	required_top(t_stacks *stacks)
 		return (stacks->b->first->rank + 1);
 }
 
-int	section_sorted(t_stacks *stacks, int start, int length)
+int	section_sorted(t_stacks *stacks, int start, int end, int length)
 {
 	t_item	*item;
 	int		i;
 
 	i = 0;
 	item = stacks->a->first;
-	while (i < length)
+	if (start == end)
+		return (0);
+	while (item->rank != start && i++ < stacks->a->size - 1)
+		item = item->next;
+	i = 0;
+	while (i < length && item->rank != end)
 	{
-		ft_printf("item rank: %d, next rank: %d\n", item->rank, item->next->rank);
 		if (item->rank != (start + i) || item->rank + 1 != item->next->rank)
 			return (0);
 		item = item->next;
@@ -82,7 +86,7 @@ int	rotate_to_order(t_stacks *stacks, t_list **operations)
 	t_item	*item;
 	int		i;
 
-	if (!section_sorted(stacks, stacks->a->first->rank, stacks->a->size - 1))
+	if (!section_sorted(stacks, stacks->a->first->rank, 0, stacks->a->size - 1))
 	{
 		i = 0;
 		item = stacks->a->first;
@@ -99,10 +103,9 @@ int	rotate_to_order(t_stacks *stacks, t_list **operations)
 		}
 		if (i == stacks->a->size - 1)
 		{
-			ft_printf("rotate to order item rank: %d, next rank: %d\n", item->rank, item->prev->rank);
-			ft_printf("rotating\n");
+			//ft_printf("rotating\n");
 			rotate_to_pos(stacks, item->rank, operations);
-			print_stacks(stacks);
+			//print_stacks(stacks);
 			return (1);
 		}
 	}

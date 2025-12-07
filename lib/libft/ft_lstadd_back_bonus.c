@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/17 09:04:18 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/10/17 09:04:22 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/07 10:44:03 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 		return ;
 	}
+	new->next = NULL;
 	last = ft_lstlast(*lst);
 	last->next = new;
 }
