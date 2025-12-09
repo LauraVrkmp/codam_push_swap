@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/26 10:45:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/06 07:09:00 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/09 10:34:07 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	solve_up_to_five(t_stacks *stacks, t_list **operations)
 	return (rotate_to_pos(stacks, 1, operations));
 }
 
-void	solve_up_to_one_hundred(t_stacks *stacks, t_list **operations)
+void	solve_big(t_stacks *stacks, t_list **operations)
 {
 	t_chunk	chunk;
 

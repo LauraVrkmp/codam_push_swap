@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/06 08:26:04 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/09 11:19:42 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_chunk
 	int		mid_max;
 	int		low_min;
 	int		low_max;
+	int		iteration;
 	t_div	division;
 	t_loc	location;
 }	t_chunk;
@@ -70,6 +71,7 @@ void		add_operation(t_stacks *stacks, char *op, char id, t_list **operations);
 void		assign_ranks(t_stacks *stacks);
 void		base_case(t_stacks *stacks, t_chunk chunk, t_list **operations, int test_base);
 void		calc_chunk(t_chunk *chunk, int start, int end);
+int			calc_iteration(int first_a, int total);
 void		check_dup(t_stacks *stacks);
 int			check_ordered_not_sorted(t_stacks *stacks);
 int			check_solved(t_stacks *stacks);
@@ -100,7 +102,7 @@ int			rotation_required_location(t_stack *stack, int loc, t_chunk chunk);
 int			section_sorted(t_stacks *stacks, int start, int end, int length);
 void		solve_three(t_stacks *stacks, t_list **operations);
 void		solve_up_to_five(t_stacks *stacks, t_list **operations);
-void		solve_up_to_one_hundred(t_stacks *stacks, t_list **operations);
+void		solve_big(t_stacks *stacks, t_list **operations);
 void		swap_both(t_stacks *stacks, t_list **operations);
 void		swap_stack(t_stacks *stacks, char id, int count, t_list **operations);
 int			test_chunk_size(t_stacks *stacks, t_chunk chunk);

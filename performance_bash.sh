@@ -4,6 +4,7 @@ runs=100
 min=999999
 max=0
 length=100
+total=0
 
 for (( i=1; i<=runs; i++ )); do
     numbers=$(shuf -i 1-10000 -n $length | tr '\n' ' ')
@@ -11,14 +12,19 @@ for (( i=1; i<=runs; i++ )); do
     echo "$numbers"
 
     output=$(./push_swap $numbers)
-    moves=$(printf "%s\n" "$output" | wc -l)
+    moves=$(printf "%s\n" "$output" | grep -x -E 'pa|pb|ra|rb|rr|rra|rrb|rrr|sa|sb|ss' | wc -l)
     last_line=$(printf "%s\n" "$output" | tail -n 1)
 
+    (( total += moves))
     (( moves < min )) && min=$moves
     (( moves > max )) && max=$moves
-    echo "Moves: $moves | Last: $last_line"
-    
+    avg=$(( total / i ))
+    echo "Moves: $moves | Last: $last_line | Avg: $avg"
+
 done
+
+avg=$(( total / runs ))
 
 echo "Min: $min"
 echo "Max: $max"
+echo "Avg: $avg"
