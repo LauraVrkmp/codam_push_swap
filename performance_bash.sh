@@ -1,9 +1,9 @@
 #!/bin/bash
 
-runs=1
+runs=100
 min=999999
 max=0
-length=631
+length=500
 total=0
 
 for (( i=1; i<=runs; i++ )); do
@@ -13,13 +13,13 @@ for (( i=1; i<=runs; i++ )); do
 
     output=$(./push_swap $numbers)
     moves=$(printf "%s\n" "$output" | grep -x -E 'pa|pb|ra|rb|rr|rra|rrb|rrr|sa|sb|ss' | wc -l)
-    last_line=$(printf "%s\n" "$output" | tail -n 1)
-
+    #last_line=$(printf "%s\n" "$output" | tail -n 1)
+    checker=$(printf "%s\n" "$output" | grep -x -E 'pa|pb|ra|rb|rr|rra|rrb|rrr|sa|sb|ss' | ./checker_linux $numbers)
     (( total += moves))
     (( moves < min )) && min=$moves
     (( moves > max )) && max=$moves
     avg=$(( total / i ))
-    echo "Moves: $moves | Last: $last_line | Avg: $avg"
+    echo "Moves: $moves | Checker: $checker | Avg: $avg"
 
 done
 

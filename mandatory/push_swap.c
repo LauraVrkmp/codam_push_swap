@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/10 10:33:12 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 20:39:58 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	t_stacks	*stacks;
 	t_list		*operations;
 
-	if (argc > 2)
+	if (argc > 1)
 	{
 		stacks = malloc(sizeof(t_stacks));
 		if (stacks == NULL)
@@ -45,9 +45,9 @@ int	main(int argc, char **argv)
 		print_operations(operations);
 		//print_stacks(stacks);
 		/* if (section_sorted(stacks, 1, stacks->total, stacks->a->size - 1))
-			ft_printf("stack is sorted\n");
+			//ft_printf("stack is sorted\n");
 		else
-			ft_printf("stack is not sorted\n"); */
+			//ft_printf("stack is not sorted\n"); */
 		cleanup(stacks, &operations);
 	}
 	return (0);

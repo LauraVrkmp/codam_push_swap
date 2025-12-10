@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/09 16:48:45 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 19:48:46 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,35 @@ static void	parse_args(int amount, char **arguments, t_stacks *stacks)
 {
 	int				i;
 	size_t			j;
+	int				start_numb;
+	int				count;
 	long long		number;
 
 	i = 1;
+	count = 1;
 	while (i < amount)
 	{
 		j = 0;
 		while (j < ft_strlen(arguments[i]))
 		{
-			if ((j == 0 && arguments[i][j] != '-' && \
-!ft_isdigit(arguments[i][j]) && !ft_isdigit(arguments[i][j + 1])) || (j > 0 && \
-!ft_isdigit(arguments[i][j])))
+			while (arguments[i][j] == ' ')
+				j++;
+			if (arguments[i][j] == '\0')
+				break ;
+			start_numb = j;
+			while (arguments[i][j] && arguments[i][j] != ' ')
+			{
+				if (j == start_numb && (arguments[i][j] == '-' || arguments[i][j] == '+') && !ft_isdigit(arguments[i][j + 1]) || (arguments[i][j] != '-' && arguments[i][j] != '+' && !ft_isdigit(arguments[i][j])))
+					init_exit("Error", stacks, NULL);
+				j++;
+			}
+			j = start_numb;
+			number = ft_atoi_long_long(arguments[i] + start_numb);
+			if (number > INT_MAX || number < INT_MIN)
 				init_exit("Error", stacks, NULL);
-			j++;
+			create_item(stacks, number, count);		
+			j += long_long_length(number) + (arguments[i][start_numb] == '+');	
 		}
-		number = ft_atoi_long_long(arguments[i]);
-		if (number > INT_MAX || number < INT_MIN)
-			init_exit("Error", stacks, NULL);
-		create_item(stacks, number, i);
 		i++;
 	}
 }

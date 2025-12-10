@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   position_operations.c                              :+:    :+:            */
+/*   position_length.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/25 21:51:33 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 22:08:32 by laveerka      ########   odam.nl         */
+/*   Created: 2025/12/10 19:06:56 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/12/10 19:15:32 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,17 @@ void	position_update(t_stack *stack, char update)
 		stack->first->position = 1;
 		stack->first->next->position = 2;
 	}
+}
+
+int	long_long_length(long long number)
+{
+	int	length;
+
+	length = 0;	
+	while (number != 0)
+	{
+		number /= 10;
+		length++;
+	}
+	return (length);
 }

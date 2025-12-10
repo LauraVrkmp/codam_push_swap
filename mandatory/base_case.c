@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:38:20 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/10 00:07:47 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 20:38:58 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	base_case(t_stacks *stacks, t_chunk chunk, t_list **operations, int test_ba
 	else
 		//ft_printf("base case BOTTOM_B\n"); */
 	//ft_printf("base, test base: %d\n", test_base);
-	if (chunk.low_min >= stacks->smallest_sorted && chunk.iteration >= calc_iteration(stacks->smallest_sorted, stacks->total))
+	if (chunk.low_min >= stacks->smallest_sorted && stacks->smallest_sorted != stacks->total && chunk.iteration >= calc_iteration(stacks->smallest_sorted, stacks->total))
 		return ;
-	if (chunk.location == TOP_A && test_base == 3 && stacks->a->size == 3 && !section_sorted(stacks, stacks->a->first->rank, stacks->total, stacks->a->size - 1))
+	if (stacks->a->size == 3 && !section_sorted(stacks, stacks->a->first->rank, stacks->total, stacks->a->size - 1))
 	{
 		//ft_printf("base case TOP_A sort three A\n");
 		solve_three(stacks, operations);

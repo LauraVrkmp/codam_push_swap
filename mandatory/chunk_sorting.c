@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:38:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/10 00:07:13 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 20:38:45 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ void	move_from_top_a(t_stacks *stacks, t_chunk chunk, t_list **operations)
 	while (max_op < (chunk.high_max - chunk.low_min + 1) && stacks->a->size > 2 && chunk.low_min != chunk.high_max)
 	{
 		if (rotate_to_order(stacks, operations))
+		{
+			stacks->smallest_sorted = find_smallest_sorted(stacks);
 			return ;
-		if (chunk.low_min >= stacks->smallest_sorted)
+		}
+		if (chunk.low_min >= stacks->smallest_sorted && stacks->smallest_sorted != stacks->total)
 			return ;
 		//ft_printf("chunk iteration: %d, low_min: %d\n", chunk.iteration, chunk.low_min);
 		//ft_printf("calc iteration: %d, first_a: %d\n", calc_iteration(stacks->a->first->rank, stacks->total), stacks->a->first->rank);
@@ -33,7 +36,7 @@ void	move_from_top_a(t_stacks *stacks, t_chunk chunk, t_list **operations)
 			swap_stack(stacks, 'A', 1, operations);
 			//print_stacks(stacks);
 		}
-		else if (stacks->a->first->rank >= chunk.high_min && stacks->a->first->rank <= chunk.high_max && !section_sorted(stacks, stacks->a->first->rank, 0, stacks->total - chunk.low_min + 1))
+		else if ((stacks->a->first->rank >= chunk.high_min && stacks->a->first->rank <= chunk.high_max && !section_sorted(stacks, stacks->a->first->rank, 0, stacks->total - chunk.low_min + 1)) || stacks->a->first->rank >= stacks->total - 2)
 		{
 			//ft_printf("from top A rotate A\n");
 			rotate_stack(stacks, 'A', 1, operations);

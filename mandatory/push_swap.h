@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/09 16:59:09 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 19:08:31 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void		insert_item(t_stack *stack, t_item *item);
 void		input_check_create(int amount, char **arguments, t_stacks *stacks);
 int			find_smallest_sorted(t_stacks *stacks);
 long long	ft_atoi_long_long(const char *nptr);
+int			long_long_length(long long number);
 t_loc		minimum_rotation(t_stacks *stacks, int *rot_required, t_chunk chunk);
 void		move_from_bottom_a(t_stacks *stacks, t_chunk chunk, t_list **operations);
 void		move_from_bottom_b(t_stacks *stacks, t_chunk chunk, t_list **operations);
