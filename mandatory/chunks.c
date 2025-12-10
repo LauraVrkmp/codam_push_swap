@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:37:59 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/09 11:58:03 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 00:07:36 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ static t_loc	determine_location(t_stacks *stacks, t_chunk chunk)
 	t_loc	min_rot;
 
 	rot_required[0] = rotation_required_location(stacks->a, TOP_A, chunk);
-	ft_printf("location TOP_A min: %d\n", rot_required[0]);
+	//ft_printf("location TOP_A min: %d\n", rot_required[0]);
 	rot_required[1] = rotation_required_location(stacks->a, BOTTOM_A, chunk);
-	ft_printf("location BOTTOM_A min: %d\n", rot_required[1]);
+	//ft_printf("location BOTTOM_A min: %d\n", rot_required[1]);
 	rot_required[2] = rotation_required_location(stacks->b, TOP_B, chunk);
-	ft_printf("location TOP_B min: %d\n", rot_required[2]);
+	//ft_printf("location TOP_B min: %d\n", rot_required[2]);
 	rot_required[3] = rotation_required_location(stacks->b, BOTTOM_B, chunk);
-	ft_printf("location BOTTOM_B min: %d\n", rot_required[3]);
+	//ft_printf("location BOTTOM_B min: %d\n", rot_required[3]);
 	min_rot = minimum_rotation(stacks, rot_required, chunk);
 	return (min_rot);
 }
@@ -104,23 +104,28 @@ void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
 		else
 			calc_chunk(&chunk, chunk.low_min, chunk.low_max);
 		chunk.iteration++;
-		ft_printf("chunks chunk iteration: %d\n", chunk.iteration);
+		//ft_printf("chunks chunk iteration: %d\n", chunk.iteration);
 	}
-	ft_printf("min: %d, max: %d\n", chunk.low_min, chunk.low_max);
-	ft_printf("min: %d, max: %d\n", chunk.mid_min, chunk.mid_max);
-	ft_printf("min: %d, max: %d\n", chunk.high_min, chunk.high_max);
+	//ft_printf("min: %d, max: %d\n", chunk.low_min, chunk.low_max);
+	//ft_printf("min: %d, max: %d\n", chunk.mid_min, chunk.mid_max);
+	//ft_printf("min: %d, max: %d\n", chunk.high_min, chunk.high_max);
 	if (stacks->a->size == stacks->total)
 		chunk.location = TOP_A;
 	else
 		chunk.location = determine_location(stacks, chunk);
-	if (chunk.location == TOP_A)
-		ft_printf("TOP_A\n");
+	/* if (chunk.location == TOP_A)
+		//ft_printf("TOP_A\n");
 	else if (chunk.location == BOTTOM_A)
-		ft_printf("BOTTOM_A\n");
+		//ft_printf("BOTTOM_A\n");
 	else if (chunk.location == TOP_B)
-		ft_printf("TOP_B\n");
+		//ft_printf("TOP_B\n");
 	else
-		ft_printf("BOTTOM_B\n");
+		//ft_printf("BOTTOM_B\n"); */
+	test_base = test_chunk_size(stacks, chunk);
+	//ft_printf("section sorted: %d\n", section_sorted(stacks, chunk.low_min, stacks->total, stacks->a->size - 1));
+	//ft_printf("smallest sorted: %d\n", stacks->smallest_sorted);
+	if (chunk.high_max - chunk.low_min == 0 || check_solved(stacks) || (stacks->a->size <= 3 && !section_sorted(stacks, stacks->total - stacks->a->size + 1, stacks->total, stacks->a->size - 1)))
+		return (base_case(stacks, chunk, operations, test_base));
 	if (chunk.location == TOP_A)
 		move_from_top_a(stacks, chunk, operations);
 	else if (chunk.location == TOP_B)
@@ -129,10 +134,6 @@ void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
 		move_from_bottom_a(stacks, chunk, operations);
 	else
 		move_from_bottom_b(stacks, chunk, operations);
-	test_base = test_chunk_size(stacks, chunk);
-	ft_printf("section sorted: %d\n", section_sorted(stacks, chunk.low_min, stacks->total, stacks->a->size - 1));
-	if (chunk.high_max - chunk.low_min == 0 || check_solved(stacks))
-		return (base_case(stacks, chunk, operations, test_base));
 	chunk.division = DIV_HIGH;
 	chunk_sorting(stacks, chunk, operations);
 	chunk.division = DIV_MID;

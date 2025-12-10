@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/09 11:19:42 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/09 16:59:09 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ typedef struct s_stacks
 	struct s_stack	*a;
 	struct s_stack	*b;
 	int				total;
-	int				chunk_start;
-	int				chunk_end;
+	int				smallest_sorted;
 }	t_stacks;
 
 typedef struct s_stack
@@ -63,6 +62,7 @@ typedef struct s_chunk
 	int		low_min;
 	int		low_max;
 	int		iteration;
+	int		smallest_sorted;
 	t_div	division;
 	t_loc	location;
 }	t_chunk;
@@ -80,6 +80,7 @@ void		cleanup(t_stacks *stacks, t_list **operations);
 void		init_exit(char *message, t_stacks *stacks, t_list **operations);
 void		insert_item(t_stack *stack, t_item *item);
 void		input_check_create(int amount, char **arguments, t_stacks *stacks);
+int			find_smallest_sorted(t_stacks *stacks);
 long long	ft_atoi_long_long(const char *nptr);
 t_loc		minimum_rotation(t_stacks *stacks, int *rot_required, t_chunk chunk);
 void		move_from_bottom_a(t_stacks *stacks, t_chunk chunk, t_list **operations);

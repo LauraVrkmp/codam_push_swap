@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   determine_rank.c                                   :+:    :+:            */
+/*   determine_rank_smallest.c                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/11/25 21:05:47 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/29 19:37:32 by laveerka      ########   odam.nl         */
+/*   Created: 2025/12/09 16:55:24 by laveerka      #+#    #+#                 */
+/*   Updated: 2025/12/09 17:39:32 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,16 @@ void	assign_ranks(t_stacks *stacks)
 		rank++;
 	}
 	free(ranks_array);
+}
+
+int	find_smallest_sorted(t_stacks *stacks)
+{
+	t_item	*item;
+
+	item = stacks->a->first;
+	while (item->rank != stacks->total)
+		item = item->next;
+	while (item->prev->rank + 1 == item->rank && item->prev->position + 1 == item->position)
+		item = item->prev;
+	return (item->rank);
 }

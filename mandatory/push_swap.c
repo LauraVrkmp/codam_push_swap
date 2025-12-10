@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/09 08:17:29 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/10 10:33:12 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	main(int argc, char **argv)
 		input_check_create(argc, argv, stacks);
 		check_dup(stacks);
 		assign_ranks(stacks);
-		print_stacks(stacks);
+		//print_stacks(stacks);
 		solve(stacks, &operations);
 		print_operations(operations);
-		print_stacks(stacks);
-		if (section_sorted(stacks, 1, stacks->total, stacks->a->size - 1))
+		//print_stacks(stacks);
+		/* if (section_sorted(stacks, 1, stacks->total, stacks->a->size - 1))
 			ft_printf("stack is sorted\n");
 		else
-			ft_printf("stack is not sorted\n");
+			ft_printf("stack is not sorted\n"); */
 		cleanup(stacks, &operations);
 	}
 	return (0);
