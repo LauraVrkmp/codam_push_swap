@@ -6,7 +6,7 @@
 #    By: laveerka <laveerka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/11/25 11:15:01 by laveerka      #+#    #+#                  #
-#    Updated: 2025/12/11 11:20:49 by laveerka      ########   odam.nl          #
+#    Updated: 2025/12/11 13:04:01 by laveerka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,21 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 FT_PRINTF_DIR = ./lib/ft_printf
 FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
 
-NAME = push_swap
-SRCS = base_case.c chunks.c chunk_sorting.c clean_exit.c determine_rank_smallest.c \
-	locations_iterations.c position_length.c operations_rotate.c operations_swap_push.c \
-	optimize_operations.c push_swap.c solve.c solve_utils.c stack_init.c \
-	utils.c visualize.c
-
-BONUS_NAME = checker
-BONUS_SRCS = base_case.c checker.c chunks.c chunk_sorting.c clean_exit.c determine_rank_smallest.c \
+FILES = base_case.c chunks.c chunk_sorting.c clean_exit.c determine_rank_smallest.c \
 	locations_iterations.c position_length.c operations_rotate.c operations_swap_push.c \
 	optimize_operations.c solve.c solve_utils.c stack_init.c \
 	utils.c visualize.c
+
+NAME = push_swap
+FILES_DIR = ./mandatory
+MAND_FILES = push_swap.c
+
+BONUS_NAME = checker
+BONUS_FILES_DIR = ./bonus
+BONUS_FILES = checker.c
+
+SRCS = $(addprefix $(FILES_DIR)/, $(FILES)) $(addprefix $(FILES_DIR)/, $(MAND_FILES))
+BONUS_SRCS = $(addprefix $(FILES_DIR)/, $(FILES)) $(addprefix $(BONUS_FILES_DIR)/, $(BONUS_FILES))
 
 OBJS_DIR = objs
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
@@ -41,10 +45,8 @@ bonus: $(LIBFT_LIB) $(FT_PRINTF_LIB) $(BONUS_NAME)
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	cc $(CFLAGS) -c $< -o $@
-
-$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+$(OBJS_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	cc $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_LIB) $(FT_PRINTF_LIB)

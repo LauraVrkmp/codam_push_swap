@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/19 20:06:50 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/10 15:53:51 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/11 12:48:47 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*next_line(char **stash)
 	if (nl_loc < 0)
 		return (ft_free(stash, NULL, NULL));
 	nl_loc++;
-	new = malloc(sizeof(char) * (ft_strlen(*stash + nl_loc) + 1));
+	new = malloc(sizeof(char) * (gnl_strlen(*stash + nl_loc) + 1));
 	if (new == NULL)
 		return (ft_free(stash, NULL, NULL));
 	while ((*stash)[nl_loc])

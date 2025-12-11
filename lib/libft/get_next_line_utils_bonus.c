@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/19 20:06:56 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/11 11:55:10 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/11 12:49:18 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char	*result;
 	char	*start;
 
-	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	result = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1);
 	if (result == NULL)
 		return (NULL);
 	start = result;
