@@ -1,9 +1,9 @@
 #!/bin/bash
 
-runs=100
+runs=1000
 min=999999
 max=0
-length=500
+length=100
 total=0
 
 for (( i=1; i<=runs; i++ )); do
