@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 19:06:56 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/10 19:15:32 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 14:03:33 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int	long_long_length(long long number)
 {
 	int	length;
 
-	length = 0;	
+	length = 0;
+	if (number == 0)
+		return (1);
 	while (number != 0)
 	{
 		number /= 10;

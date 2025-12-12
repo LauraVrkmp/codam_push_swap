@@ -6,17 +6,17 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/11 10:05:15 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/11 13:04:33 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 13:38:13 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mandatory/push_swap.h"
+#include "push_swap.h"
 
 static void	invalid_instruction(t_stacks *stacks, char *instr)
 {
 	free(instr);
 	cleanup(stacks, NULL);
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	exit(EXIT_FAILURE);
 }
 
@@ -68,7 +68,6 @@ static void	read_instructions(t_stacks *stacks)
 int	main(int argc, char **argv)
 {
 	t_stacks	*stacks;
-	t_list		*operations;
 
 	if (argc > 1)
 	{
@@ -77,12 +76,11 @@ int	main(int argc, char **argv)
 			init_exit("Malloc failed", NULL, NULL);
 		stacks->a = NULL;
 		stacks->b = NULL;
-		operations = NULL;
 		input_check_create(argc, argv, stacks);
 		check_dup(stacks);
 		assign_ranks(stacks);
 		read_instructions(stacks);
-		cleanup(stacks, &operations);
+		cleanup(stacks, NULL);
 	}
 	return (0);
 }

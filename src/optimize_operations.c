@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:05:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/10 23:19:10 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/11 17:56:18 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_list	*substitute_operations(t_list *operations, char *id_first, char *i
 				ft_printf("rrr\n");
 			else if ((ft_strncmp(id_first, "sa", ft_strlen("sa")) == 0 || !ft_strncmp(id_first, "sb", ft_strlen("sb"))))
 				ft_printf("ss\n");
-			ft_printf("substitution\n");
+			//ft_printf("substitution\n");
 		}
 		operations = operations->next;
 		save_first--;
@@ -87,7 +87,7 @@ static t_list	*skip_operations(t_list *operations, char *id_first, char *id_seco
 	save_second *= 2;
 	while (save_first-- && save_second--)
 	{
-		ft_printf("%s to %s optimization\n", id_first, id_second);
+		//ft_printf("%s to %s optimization\n", id_first, id_second);
 		operations = operations->next;
 	}
 	return (operations);

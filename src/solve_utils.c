@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:51:46 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/11 10:16:12 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 09:54:38 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,10 @@ int	rotate_to_order(t_stacks *stacks, t_list **operations)
 		}
 		if (i == stacks->a->size - 1)
 		{
-			ft_printf("rotating\n");
+			//ft_printf("rotating\n");
 			rotate_to_pos(stacks, item->rank, operations);
 			stacks->smallest_sorted = find_smallest_sorted(stacks);
-			print_stacks(stacks);
+			//print_stacks(stacks);
 			return (1);
 		}
 	}

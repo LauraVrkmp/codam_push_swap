@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 16:00:22 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/10 20:39:32 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 13:34:14 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	free_operations(t_list **operations)
 
 void	init_exit(char *message, t_stacks *stacks, t_list **operations)
 {
-if (!ft_strncmp(message, "Malloc failed", ft_strlen(message)))
-		ft_printf("%s\n", message);
+	if (!ft_strncmp(message, "Malloc failed", ft_strlen(message)))
+		write(2, "Malloc failed\n", ft_strlen("Malloc failed\n"));
 	else if (!ft_strncmp(message, "Error", ft_strlen(message)))
-		ft_printf("%s\n", message);
+		write(2, "Error\n", ft_strlen("Error\n"));
 	if (stacks)
 	{
 		if (stacks->a)

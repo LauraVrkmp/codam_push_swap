@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/19 20:06:50 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/11 12:48:47 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 13:51:03 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ char	*extract_next(char **stash)
 {
 	char	*line;
 
+	if (*stash && (*stash)[0] == '\0')
+	{
+		free(*stash);
+		*stash = NULL;
+		return (NULL);
+	}
 	line = extract_line(*stash);
 	if (line == NULL)
 		return (ft_free(stash, NULL, NULL));

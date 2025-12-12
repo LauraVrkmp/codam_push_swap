@@ -1,12 +1,12 @@
 #!/bin/bash
 
-runs=10
+runs=100
 min=999999
 max=0
 max_length=600
-total=0
 
-for (( length=1; length<=max_length, length++)); do
+for (( length=1; length<=max_length; length++)); do
+    total=0
     for (( i=1; i<=runs; i++ )); do
         numbers=$(shuf -i 1-10000 -n $length | tr '\n' ' ')
 
@@ -20,7 +20,7 @@ for (( length=1; length<=max_length, length++)); do
         (( moves < min )) && min=$moves
         (( moves > max )) && max=$moves
         avg=$(( total / i ))
-        echo "Length: $i | Moves: $moves | Checker: $checker | Avg: $avg"
+        echo "Length: $length | Moves: $moves | Checker: $checker | Avg: $avg"
 
     done
 done
