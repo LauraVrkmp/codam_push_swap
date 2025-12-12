@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 18:08:57 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 22:00:58 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,45 +48,55 @@ static void	create_item(t_stacks *stacks, long long number, int position)
 	stacks->a->size++;
 }
 
+static int	parse_loop(char **arguments, int (*i_j_count)[3], t_stacks *stacks)
+{
+	int			start_numb;
+	long long	number;
+
+	start_numb = (*i_j_count)[1];
+	while (arguments[(*i_j_count)[0]][(*i_j_count)[1]] && \
+arguments[(*i_j_count)[0]][(*i_j_count)[1]] != ' ')
+	{
+		if (((*i_j_count)[1] == start_numb && \
+(arguments[(*i_j_count)[0]][(*i_j_count)[1]] == '-' || \
+arguments[(*i_j_count)[0]][(*i_j_count)[1]] == '+') && \
+!ft_isdigit(arguments[(*i_j_count)[0]][(*i_j_count)[1] + 1])) || \
+(arguments[(*i_j_count)[0]][(*i_j_count)[1]] != '-' && \
+arguments[(*i_j_count)[0]][(*i_j_count)[1]] != '+' && \
+!ft_isdigit(arguments[(*i_j_count)[0]][(*i_j_count)[1]])))
+			init_exit("Error", stacks, NULL);
+		(*i_j_count)[1]++;
+	}
+	(*i_j_count)[1] = start_numb;
+	number = ft_atoi_long_long(arguments[(*i_j_count)[0]] + start_numb);
+	if (number > INT_MAX || number < INT_MIN)
+		init_exit("Error", stacks, NULL);
+	create_item(stacks, number, (*i_j_count)[3]++);
+	(*i_j_count)[1] += long_long_length(number) + \
+(arguments[(*i_j_count)[0]][start_numb] == '+');
+	return ((*i_j_count)[1]);
+}
+
 static void	parse_args(int amount, char **arguments, t_stacks *stacks)
 {
-	int				i;
-	size_t			j;
-	size_t			start_numb;
-	int				count;
-	long long		number;
+	int				i_j_count[3];
 
-	i = 1;
-	count = 1;
-	while (i < amount)
+	i_j_count[0] = 1;
+	i_j_count[2] = 1;
+	while (i_j_count[0] < amount)
 	{
-		j = 0;
-		if (j == 0 && arguments[i][j] == '\0')
+		i_j_count[1] = 0;
+		if (i_j_count[1] == 0 && arguments[i_j_count[0]][i_j_count[1]] == '\0')
 			init_exit("Error", stacks, NULL);
-		while (j < ft_strlen(arguments[i]))
+		while (i_j_count[1] < (int)ft_strlen(arguments[i_j_count[0]]))
 		{
-			while (arguments[i][j] == ' ')
-				j++;
-			if (arguments[i][j] == '\0')
+			while (arguments[i_j_count[0]][i_j_count[1]] == ' ')
+				i_j_count[1]++;
+			if (arguments[i_j_count[0]][i_j_count[1]] == '\0')
 				break ;
-			start_numb = j;
-			while (arguments[i][j] && arguments[i][j] != ' ')
-			{
-				if ((j == start_numb && (arguments[i][j] == '-' || \
-arguments[i][j] == '+') && !ft_isdigit(arguments[i][j + 1])) || \
-(arguments[i][j] != '-' && arguments[i][j] != '+' && \
-!ft_isdigit(arguments[i][j])))
-					init_exit("Error", stacks, NULL);
-				j++;
-			}
-			j = start_numb;
-			number = ft_atoi_long_long(arguments[i] + start_numb);
-			if (number > INT_MAX || number < INT_MIN)
-				init_exit("Error", stacks, NULL);
-			create_item(stacks, number, count++);
-			j += long_long_length(number) + (arguments[i][start_numb] == '+');
+			i_j_count[1] = parse_loop(arguments, &i_j_count, stacks);
 		}
-		i++;
+		i_j_count[0]++;
 	}
 }
 
@@ -115,29 +125,4 @@ t_stacks *stacks)
 	parse_args(amount, arguments, stacks);
 	stacks->total = stacks->a->size;
 	stacks->smallest_sorted = stacks->a->size;
-}
-
-void	check_dup(t_stacks *stacks)
-{
-	int		i;
-	int		j;
-	t_item	*current;
-	t_item	*compare;
-
-	i = 1;
-	current = stacks->a->first;
-	while (i < stacks->a->size)
-	{
-		j = i;
-		compare = current->next;
-		while (j < stacks->a->size)
-		{
-			if (current->number == compare->number)
-				init_exit("Error", stacks, NULL);
-			compare = compare->next;
-			j++;
-		}
-		current = current->next;
-		i++;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/09 11:06:27 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 18:01:11 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 21:05:36 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,45 +52,38 @@ t_loc	minimum_rotation(t_stacks *stacks, int *rot_required, t_chunk chunk)
 	return (loc);
 }
 
-int	rotation_required_location(t_stack *stack, int loc, t_chunk chunk)
+static int	rotation_loop(t_stack *stack, int loc, t_chunk chunk, \
+t_item *current)
 {
-	t_item	*current;
-	int		stack_size_i;
-	int		i;
+	int	stack_size_i;
+	int	i;
 
 	stack_size_i = 0;
-	current = NULL;
 	i = 1;
 	if (loc == TOP_A || loc == TOP_B)
 	{
-		if (stack->first)
-		{
-			current = stack->first;
-			while ((current->rank < chunk.low_min || \
-current->rank > chunk.high_max) && stack_size_i++ < stack->size)
-			{
-				current = current->next;
-				i++;
-			}
-		}
+		current = stack->first;
+		while ((current->rank < chunk.low_min || \
+current->rank > chunk.high_max) && stack_size_i++ < stack->size && i++)
+			current = current->next;
 	}
 	else
 	{
-		if (stack->first)
-		{
-			current = stack->last;
-			while ((current->rank < chunk.low_min || \
-current->rank > chunk.high_max) && stack_size_i++ < stack->size)
-			{
-				current = current->prev;
-				i++;
-			}
-		}
+		current = stack->last;
+		while ((current->rank < chunk.low_min || \
+current->rank > chunk.high_max) && stack_size_i++ < stack->size && i++)
+			current = current->prev;
 	}
-	if (current)
-	{
-		return (i);
-	}
+	return (i);
+}
+
+int	rotation_required_location(t_stack *stack, int loc, t_chunk chunk)
+{
+	t_item	*current;
+
+	current = NULL;
+	if (stack->first)
+		return (rotation_loop(stack, loc, chunk, current));
 	return (-1);
 }
 

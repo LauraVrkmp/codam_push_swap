@@ -6,7 +6,7 @@
 #    By: laveerka <laveerka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/11/25 11:15:01 by laveerka      #+#    #+#                  #
-#    Updated: 2025/12/11 17:20:39 by laveerka      ########   odam.nl          #
+#    Updated: 2025/12/12 20:46:54 by laveerka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 FT_PRINTF_DIR = ./lib/ft_printf
 FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
 
-FILES = base_case.c chunks.c chunk_sorting.c clean_exit.c determine_rank_smallest.c \
+FILES = base_case.c chunks.c chunks_size.c chunk_sorting.c chunk_sorting_ext.c clean_exit.c determine_rank_smallest.c \
 	locations_iterations.c position_length.c operations_rotate.c operations_swap_push.c \
 	optimize_operations.c solve.c solve_utils.c stack_init.c \
 	utils.c visualize.c

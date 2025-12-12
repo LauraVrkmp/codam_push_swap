@@ -6,45 +6,35 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:05:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 18:04:42 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 21:29:36 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_list	*substitute_operations(t_list *operations, char *id_first, \
-char *id_second)
+static void	save_operation(t_list *save_op, int (*save_first_second)[2], \
+char *id_first, char *id_second)
 {
-	t_list	*save_op;
-	int		save_first;
-	int		save_second;
-
-	save_op = operations;
-	save_first = 0;
 	while (save_op && ft_strncmp(save_op->content, id_first, \
 ft_strlen(id_first)) == 0)
 	{
 		save_op = save_op->next;
-		save_first++;
+		(*save_first_second)[0]++;
 	}
-	save_second = 0;
 	while (save_op && ft_strncmp(save_op->content, id_second, \
 ft_strlen(id_second)) == 0)
 	{
 		save_op = save_op->next;
-		save_second++;
+		(*save_first_second)[1]++;
 	}
-	while (save_first > save_second && save_second)
+}
+
+static t_list	*substitute(t_list *operations, int (*save_first_second)[2], \
+char *id_first)
+{
+	while (operations && (*save_first_second)[0] && (*save_first_second)[1])
 	{
-		save_first--;
-		ft_printf("%s\n", operations->content);
-		operations = operations->next;
-	}
-	save_first *= 2;
-	save_second *= 2;
-	while (operations && save_first && save_second)
-	{
-		if (save_first % 2 == 0)
+		if ((*save_first_second)[0] % 2 == 0)
 		{
 			if (ft_strncmp(id_first, "ra", ft_strlen("ra")) == 0 || \
 !ft_strncmp(id_first, "rb", ft_strlen("rb")))
@@ -57,43 +47,52 @@ ft_strlen(id_second)) == 0)
 				ft_printf("ss\n");
 		}
 		operations = operations->next;
-		save_first--;
-		save_second--;
+		(*save_first_second)[0]--;
+		(*save_first_second)[1]--;
 	}
 	return (operations);
+}
+
+static t_list	*substitute_operations(t_list *operations, char *id_first, \
+char *id_second)
+{
+	t_list	*save_op;
+	int		save_first_second[2];
+
+	save_op = operations;
+	save_first_second[0] = 0;
+	save_first_second[1] = 0;
+	save_operation(save_op, &save_first_second, id_first, id_second);
+	while (save_first_second[0] > save_first_second[1] && save_first_second[1])
+	{
+		save_first_second[0]--;
+		ft_printf("%s\n", operations->content);
+		operations = operations->next;
+	}
+	save_first_second[0] *= 2;
+	save_first_second[1] *= 2;
+	return (substitute(operations, &save_first_second, id_first));
 }
 
 static t_list	*skip_operations(t_list *operations, char *id_first, \
 char *id_second)
 {
 	t_list	*save_op;
-	int		save_first;
-	int		save_second;
+	int		save_first_second[2];
 
 	save_op = operations;
-	save_first = 0;
-	while (save_op && ft_strncmp(save_op->content, id_first, \
-ft_strlen(id_first)) == 0)
+	save_first_second[0] = 0;
+	save_first_second[1] = 0;
+	save_operation(save_op, &save_first_second, id_first, id_second);
+	while (save_first_second[0] > save_first_second[1] && save_first_second[1])
 	{
-		save_op = save_op->next;
-		save_first++;
-	}
-	save_second = 0;
-	while (save_op && ft_strncmp(save_op->content, id_second, \
-ft_strlen(id_second)) == 0)
-	{
-		save_op = save_op->next;
-		save_second++;
-	}
-	while (save_first > save_second && save_second)
-	{
-		save_first--;
+		save_first_second[0]--;
 		ft_printf("%s\n", operations->content);
 		operations = operations->next;
 	}
-	save_first *= 2;
-	save_second *= 2;
-	while (save_first-- && save_second--)
+	save_first_second[0] *= 2;
+	save_first_second[1] *= 2;
+	while (save_first_second[0]-- && save_first_second[1]--)
 		operations = operations->next;
 	return (operations);
 }

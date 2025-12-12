@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:51:46 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 18:07:26 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 21:33:23 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,11 @@ stacks->a->size - 1))
 	{
 		i = 0;
 		item = stacks->a->first;
-		while (item->rank != stacks->total && i < stacks->a->size)
-		{
+		while (item->rank != stacks->total && i++ < stacks->a->size)
 			item = item->next;
-			i++;
-		}
 		i = 0;
-		while (item->rank - 1 == item->prev->rank && i < stacks->a->size)
-		{
+		while (item->rank - 1 == item->prev->rank && i++ < stacks->a->size)
 			item = item->prev;
-			i++;
-		}
 		if (i == stacks->a->size - 1)
 		{
 			rotate_to_pos(stacks, item->rank, operations);

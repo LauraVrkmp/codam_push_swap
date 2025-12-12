@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 18:06:46 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 22:01:17 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void		base_case(t_stacks *stacks, t_chunk chunk, \
 t_list **operations, int test_base);
 void		calc_chunk(t_chunk *chunk, int start, int end);
 int			calc_iteration(int first_a, int total);
-void		check_dup(t_stacks *stacks);
 int			check_ordered_not_sorted(t_stacks *stacks);
 int			check_solved(t_stacks *stacks);
 void		chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations);
@@ -90,12 +89,18 @@ t_loc		minimum_rotation(t_stacks *stacks, int *rot_required, \
 t_chunk chunk);
 void		move_from_bottom_a(t_stacks *stacks, t_chunk chunk, \
 t_list **operations);
+void		move_from_bottom_a_ext(t_stacks *stacks, t_chunk chunk, \
+t_list **operations);
 void		move_from_bottom_b(t_stacks *stacks, t_chunk chunk, \
 t_list **operations);
 void		move_from_top_a(t_stacks *stacks, t_chunk chunk, \
 t_list **operations);
+void		move_from_top_a_ext(t_stacks *stacks, t_chunk chunk, \
+t_list **operations, int *max_op);
 void		move_from_top_b(t_stacks *stacks, t_chunk chunk, \
 t_list **operations);
+void		move_from_top_b_ext(t_stacks *stacks, t_chunk chunk, \
+t_list **operations, int *max_op);
 void		position_update(t_stack *stack, char update);
 void		push_stack(t_stacks *stacks, char *count_id, t_list **operations);
 void		print_operations(t_list *operations);

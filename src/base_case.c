@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:38:20 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 17:56:56 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 20:20:33 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ stacks->b->first->rank + 1 == stacks->a->first->rank)
 	}
 }
 
+static void	base_case_top_b(t_stacks *stacks, t_chunk chunk, \
+t_list **operations, int test_base)
+{
+	if (test_base == 2 && \
+stacks->b->first->rank + 1 == stacks->b->first->next->rank)
+		swap_stack(stacks, 'B', "1P", operations);
+	while (test_base--)
+		push_stack(stacks, "AP", operations);
+	while (chunk.low_min + 1 == stacks->a->first->rank && \
+stacks->b->first->rank != chunk.low_min)
+		rotate_stack(stacks, 'B', "1P", operations);
+	if (stacks->b->first && \
+stacks->b->first->rank + 1 == stacks->a->first->rank)
+		push_stack(stacks, "AP", operations);
+}
+
 void	base_case(t_stacks *stacks, t_chunk chunk, \
 t_list **operations, int test_base)
 {
@@ -54,19 +70,7 @@ stacks->a->first->rank, stacks->total, stacks->a->size - 1))
 stacks->a->first->rank - 1 == stacks->a->first->next->rank)
 		swap_stack(stacks, 'A', "1P", operations);
 	else if (chunk.location == TOP_B && stacks->b->size > 0)
-	{
-		if (test_base == 2 && \
-stacks->b->first->rank + 1 == stacks->b->first->next->rank)
-			swap_stack(stacks, 'B', "1P", operations);
-		while (test_base--)
-			push_stack(stacks, "AP", operations);
-		while (chunk.low_min + 1 == stacks->a->first->rank && \
-stacks->b->first->rank != chunk.low_min)
-			rotate_stack(stacks, 'B', "1P", operations);
-		if (stacks->b->first && \
-stacks->b->first->rank + 1 == stacks->a->first->rank)
-			push_stack(stacks, "AP", operations);
-	}
+		base_case_top_b(stacks, chunk, operations, test_base);
 	else
 		base_case_ext(stacks, chunk, operations, test_base);
 	stacks->smallest_sorted = find_smallest_sorted(stacks);
