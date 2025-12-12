@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 19:06:56 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 14:03:33 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 18:05:04 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	position_update(t_stack *stack, char update)
 	int		i;
 	t_item	*item;
 
-	pos = 1;	
+	pos = 1;
 	if (update == 'F')
 	{
 		i = 0;

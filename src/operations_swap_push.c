@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 18:41:34 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/11 10:12:25 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 18:03:24 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_item *second_to_first)
 	stack->first = second_to_first;
 }
 
-void	swap_stack(t_stacks *stacks, char to_id, char *count_id, t_list **operations)
+void	swap_stack(t_stacks *stacks, char to_id, char *count_id, \
+t_list **operations)
 {
 	t_stack	*stack;
 	t_item	*first_to_second;

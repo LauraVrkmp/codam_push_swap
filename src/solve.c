@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/26 10:45:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/11 10:15:27 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 18:07:54 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ void	solve_three(t_stacks *stacks, t_list **operations)
 {
 	if (check_solved(stacks))
 		return ;
-	else if (stacks->a->first->rank > stacks->a->first->next->rank && stacks->a->first->rank < stacks->a->last->rank)
+	else if (stacks->a->first->rank > stacks->a->first->next->rank && \
+stacks->a->first->rank < stacks->a->last->rank)
 		swap_stack(stacks, 'A', "1P", operations);
-	else if (stacks->a->first->rank > stacks->a->first->next->rank && stacks->a->first->next->rank > stacks->a->last->rank)
+	else if (stacks->a->first->rank > stacks->a->first->next->rank && \
+stacks->a->first->next->rank > stacks->a->last->rank)
 	{
 		swap_stack(stacks, 'A', "1P", operations);
 		reverse_rotate_stack(stacks, 'A', "1P", operations);
 	}
-	else if (stacks->a->first->rank > stacks->a->last->rank && stacks->a->first->next->rank < stacks->a->last->rank)
+	else if (stacks->a->first->rank > stacks->a->last->rank && \
+stacks->a->first->next->rank < stacks->a->last->rank)
 		rotate_stack(stacks, 'A', "1P", operations);
 	else
 	{

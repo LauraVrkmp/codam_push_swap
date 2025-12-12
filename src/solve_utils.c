@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/29 20:51:46 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 09:54:38 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 18:07:26 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ int	required_top(t_stacks *stacks)
 {
 	if (stacks->b->size > 1)
 	{
-		if (stacks->b->first->rank == stacks->total || (stacks->b->first->rank == stacks->total - 1 && stacks->b->first->next->rank == stacks->total))
+		if (stacks->b->first->rank == stacks->total || \
+(stacks->b->first->rank == stacks->total - 1 && \
+stacks->b->first->next->rank == stacks->total))
 			return (1 + (stacks->b->first->next->rank == 1));
 		else
-			return (stacks->b->first->rank + 1 + (stacks->b->first->next->rank == stacks->b->first->rank + 1));
+			return (stacks->b->first->rank + 1 + \
+(stacks->b->first->next->rank == stacks->b->first->rank + 1));
 	}
 	if (stacks->b->first->rank == stacks->total)
 		return (1);
@@ -88,7 +91,8 @@ int	rotate_to_order(t_stacks *stacks, t_list **operations)
 	t_item	*item;
 	int		i;
 
-	if (!section_sorted(stacks, stacks->a->first->rank, 0, stacks->a->size - 1))
+	if (!section_sorted(stacks, stacks->a->first->rank, 0, \
+stacks->a->size - 1))
 	{
 		i = 0;
 		item = stacks->a->first;
@@ -105,10 +109,8 @@ int	rotate_to_order(t_stacks *stacks, t_list **operations)
 		}
 		if (i == stacks->a->size - 1)
 		{
-			//ft_printf("rotating\n");
 			rotate_to_pos(stacks, item->rank, operations);
 			stacks->smallest_sorted = find_smallest_sorted(stacks);
-			//print_stacks(stacks);
 			return (1);
 		}
 	}

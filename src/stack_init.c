@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 14:04:12 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 18:08:57 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static void	parse_args(int amount, char **arguments, t_stacks *stacks)
 			start_numb = j;
 			while (arguments[i][j] && arguments[i][j] != ' ')
 			{
-				if ((j == start_numb && (arguments[i][j] == '-' || arguments[i][j] == '+') && !ft_isdigit(arguments[i][j + 1])) || (arguments[i][j] != '-' && arguments[i][j] != '+' && !ft_isdigit(arguments[i][j])))
+				if ((j == start_numb && (arguments[i][j] == '-' || \
+arguments[i][j] == '+') && !ft_isdigit(arguments[i][j + 1])) || \
+(arguments[i][j] != '-' && arguments[i][j] != '+' && \
+!ft_isdigit(arguments[i][j])))
 					init_exit("Error", stacks, NULL);
 				j++;
 			}
@@ -80,8 +83,8 @@ static void	parse_args(int amount, char **arguments, t_stacks *stacks)
 			number = ft_atoi_long_long(arguments[i] + start_numb);
 			if (number > INT_MAX || number < INT_MIN)
 				init_exit("Error", stacks, NULL);
-			create_item(stacks, number, count++);		
-			j += long_long_length(number) + (arguments[i][start_numb] == '+');	
+			create_item(stacks, number, count++);
+			j += long_long_length(number) + (arguments[i][start_numb] == '+');
 		}
 		i++;
 	}

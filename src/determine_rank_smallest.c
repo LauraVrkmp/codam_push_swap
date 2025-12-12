@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/09 16:55:24 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/09 17:39:32 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/12 18:00:11 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_item *current)
 {
 	int	i;
 	int	minimum;
-	
+
 	i = 0;
 	minimum = INT_MAX;
 	while (i < stacks->a->size)
@@ -67,7 +67,8 @@ int	find_smallest_sorted(t_stacks *stacks)
 	item = stacks->a->first;
 	while (item->rank != stacks->total)
 		item = item->next;
-	while (item->prev->rank + 1 == item->rank && item->prev->position + 1 == item->position)
+	while (item->prev->rank + 1 == item->rank && \
+item->prev->position + 1 == item->position)
 		item = item->prev;
 	return (item->rank);
 }
