@@ -5,7 +5,7 @@ min=999999
 max=0
 max_length=500
 
-for (( length=500; length<=max_length; length++)); do
+for (( length=1; length<=max_length; length++)); do
     total=0
     for (( i=1; i<=runs; i++ )); do
         numbers=$(shuf -i 1-10000 -n $length | tr '\n' ' ')

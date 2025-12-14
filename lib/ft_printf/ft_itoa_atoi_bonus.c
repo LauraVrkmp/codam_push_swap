@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:12 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 17:08:53 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/03 10:29:29 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,43 +69,18 @@ char	*ft_itoa_printf(int signednum, unsigned int unsignednum, char type)
 	return (string);
 }
 
-int	ft_atoi_gnl(const char *nptr)
-{
-	int	result;
-	int	sign;
-
-	result = 0;
-	sign = 1;
-	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
-	{
-		if (*nptr == '-')
-			sign *= -1;
-		nptr++;
-		if (!(*nptr >= '0' && *nptr <= '9'))
-			return (0);
-	}
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		result = result * 10 + (*nptr - '0');
-		nptr++;
-	}
-	return (result * sign);
-}
-
 int	parse_width_prec(t_flags *type, const char *format)
 {
 	int	intlen;
 
 	if (type->period)
 	{
-		type->precision = ft_atoi_gnl(format);
+		type->precision = ft_atoi(format);
 		intlen = ft_intlen(type->precision);
 	}
 	else
 	{
-		type->width = ft_atoi_gnl(format);
+		type->width = ft_atoi(format);
 		intlen = ft_intlen(type->width);
 	}
 	return (intlen);

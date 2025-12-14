@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:36 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 17:08:05 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/14 17:58:43 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <limits.h>
+#include "../libft/libft.h"
 
 typedef struct s_flags
 {
@@ -31,17 +32,18 @@ typedef struct s_flags
 	int		num_zero;
 }	t_flags;
 
-int		fill_str(char **str, char format, unsigned long long addr, \
+int			fill_str(char **str, char format, unsigned long long addr, \
 unsigned int number);
-void	ft_bzero(void *s, size_t n);
-size_t	ft_intlen(int n);
-char	*ft_itoa_printf(int signednum, unsigned int unsignednum, char type);
-int		ft_printf(const char *format, ...);
-size_t	ft_strlen_gnl(const char *s);
-int		parse_width_prec(t_flags *type, const char *format);
-int		print_char(t_flags *type, va_list arg);
-int		print_hex(t_flags *type, va_list arg);
-int		print_number(t_flags *type, va_list arg);
-int		print_pointer(t_flags *type, va_list arg);
-int		print_string(t_flags *type, va_list arg);
-int		spacing_zeros(int *spacing, char filler);
+size_t		ft_intlen(int n);
+char		*ft_itoa_printf(int signednum, unsigned int unsignednum, char type);
+int			ft_printf(const char *format, ...);
+int			ft_printf_ext(const char *format, va_list args);
+int			parse_width_prec(t_flags *type, const char *format);
+int			print_char(t_flags *type, va_list arg);
+int			print_hex(t_flags *type, va_list arg);
+int			print_id(t_flags *type, va_list args);
+int			print_number(t_flags *type, va_list arg);
+int			print_pointer(t_flags *type, va_list arg);
+int			print_string(t_flags *type, va_list arg);
+const char	*read_format(t_flags **type, const char *format);
+int			spacing_zeros(int *spacing, char filler);

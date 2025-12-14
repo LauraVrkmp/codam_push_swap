@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:37:59 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 20:51:02 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/14 19:46:26 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_loc	determine_location(t_stacks *stacks, t_chunk chunk)
 }
 
 static void	moving_and_recursion(t_stacks *stacks, t_chunk chunk, \
-t_list **operations)
+t_list **operations, int iteration)
 {
 	if (chunk.location == TOP_A)
 		move_from_top_a(stacks, chunk, operations);
@@ -36,34 +36,36 @@ t_list **operations)
 		move_from_bottom_a(stacks, chunk, operations);
 	else
 		move_from_bottom_b(stacks, chunk, operations);
+	print_stacks(stacks);
+	iteration++;
 	chunk.division = DIV_HIGH;
-	chunk_sorting(stacks, chunk, operations);
+	chunk_sorting(stacks, chunk, operations, iteration);
 	chunk.division = DIV_MID;
-	chunk_sorting(stacks, chunk, operations);
+	chunk_sorting(stacks, chunk, operations, iteration);
 	chunk.division = DIV_LOW;
-	chunk_sorting(stacks, chunk, operations);
+	chunk_sorting(stacks, chunk, operations, iteration);
 }
 
-void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
+void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations, int iteration)
 {
 	int	test_base;
 
-	if (stacks->a->size != stacks->total)
-	{
-		if (chunk.division == DIV_HIGH)
-			calc_chunk(&chunk, chunk.high_min, chunk.high_max);
-		else if (chunk.division == DIV_MID)
-			calc_chunk(&chunk, chunk.mid_min, chunk.mid_max);
-		else
-			calc_chunk(&chunk, chunk.low_min, chunk.low_max);
-		chunk.iteration++;
-	}
-	if (stacks->a->size != stacks->total)
+	if (chunk.iteration == 1)
+		calc_chunk(&chunk, 1, stacks->total);
+	else if (chunk.division == DIV_HIGH)
+		calc_chunk(&chunk, chunk.high_min, chunk.high_max);
+	else if (chunk.division == DIV_MID)
+		calc_chunk(&chunk, chunk.mid_min, chunk.mid_max);
+	else
+		calc_chunk(&chunk, chunk.low_min, chunk.low_max);
+	chunk.iteration++;
+	if (chunk.iteration != 1)
 		chunk.location = determine_location(stacks, chunk);
+	ft_printf("low_min: %d, high_max: %d, stack a size: %d, chunk loc: %d\n", chunk.low_min, chunk.high_max, stacks->a->size, chunk.location);
 	test_base = test_chunk_size(stacks, chunk);
 	if (chunk.high_max - chunk.low_min == 0 || check_solved(stacks) || \
 (stacks->a->size <= 3 && !section_sorted(stacks, stacks->total - \
 stacks->a->size + 1, stacks->total, stacks->a->size - 1)))
 		return (base_case(stacks, chunk, operations, test_base));
-	moving_and_recursion(stacks, chunk, operations);
+	moving_and_recursion(stacks, chunk, operations, iteration);
 }

@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 17:53:30 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 22:00:58 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/14 17:59:17 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ arguments[(*i_j_count)[0]][(*i_j_count)[1]] != '+' && \
 	number = ft_atoi_long_long(arguments[(*i_j_count)[0]] + start_numb);
 	if (number > INT_MAX || number < INT_MIN)
 		init_exit("Error", stacks, NULL);
-	create_item(stacks, number, (*i_j_count)[3]++);
+	create_item(stacks, number, (*i_j_count)[2]++);
 	(*i_j_count)[1] += long_long_length(number) + \
 (arguments[(*i_j_count)[0]][start_numb] == '+');
 	return ((*i_j_count)[1]);

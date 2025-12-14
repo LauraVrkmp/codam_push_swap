@@ -6,13 +6,13 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:32 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 14:35:34 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/11/26 14:32:52 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static int	print_id(t_flags *type, va_list args)
+int	print_id(t_flags *type, va_list args)
 {
 	int	format_length;
 
@@ -60,7 +60,7 @@ format == 'x' || format == 'X' || format == '%')
 	return (0);
 }
 
-static const char	*read_format(t_flags **type, const char *format)
+const char	*read_format(t_flags **type, const char *format)
 {
 	*type = malloc(sizeof(t_flags));
 	if (*type == NULL)
@@ -88,28 +88,12 @@ static const char	*read_format(t_flags **type, const char *format)
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	t_flags	*type;
 	int		char_count;
-	int		length;
 
-	char_count = 0;
+	if (format == NULL)
+		return (-1);
 	va_start(args, format);
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format = read_format(&type, ++format);
-			if (type == NULL)
-				return (-1);
-			length = print_id(type, args);
-			if (length == -1)
-				return (-1);
-			char_count += length;
-			free(type);
-		}
-		else
-			char_count += write(1, format++, 1);
-	}
+	char_count = ft_printf_ext(format, args);
 	va_end(args);
 	return (char_count);
 }

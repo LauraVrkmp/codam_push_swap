@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/22 13:54:20 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/11/25 17:07:30 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/03 10:13:10 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static int	write_length(char *num_str, t_flags *type)
 	int	prec;
 
 	prec = type->precision;
-	num_length = ft_strlen_gnl(num_str);
+	num_length = ft_strlen(num_str);
 	written = format_start_number(type, num_length);
 	if (type->neg)
-		written += write(1, num_str + 1, ft_strlen_gnl(num_str) - 1);
+		written += write(1, num_str + 1, ft_strlen(num_str) - 1);
 	else
-		written += write(1, num_str, ft_strlen_gnl(num_str));
+		written += write(1, num_str, ft_strlen(num_str));
 	if (prec >= num_length)
 		while (type->width > (prec + type->plus + type->space + type->neg) \
 && type->minus)
