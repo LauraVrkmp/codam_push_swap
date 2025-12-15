@@ -6,36 +6,11 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/15 14:38:17 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 15:39:39 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	check_dup(t_stacks *stacks)
-{
-	int		i;
-	int		j;
-	t_item	*current;
-	t_item	*compare;
-
-	i = 1;
-	current = stacks->a->first;
-	while (i < stacks->a->size)
-	{
-		j = i;
-		compare = current->next;
-		while (j < stacks->a->size)
-		{
-			if (current->number == compare->number)
-				init_exit("Error", stacks, NULL);
-			compare = compare->next;
-			j++;
-		}
-		current = current->next;
-		i++;
-	}
-}
 
 static void	solve(t_stacks *stacks, t_list **operations)
 {

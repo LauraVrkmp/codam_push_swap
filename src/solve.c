@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/26 10:45:45 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/15 10:04:07 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 15:38:07 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	solve_big(t_stacks *stacks, t_list **operations)
 	chunk.division = DIV_HIGH;
 	chunk.location = TOP_A;
 	chunk.iteration = 0;
-	chunk_sorting(stacks, chunk, operations, 1);
+	chunk_sorting(stacks, chunk, operations);
 }

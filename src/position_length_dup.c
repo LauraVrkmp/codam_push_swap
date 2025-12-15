@@ -1,16 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   position_length.c                                  :+:    :+:            */
+/*   position_length_dup.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 19:06:56 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/12 18:05:04 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 15:39:49 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	check_dup(t_stacks *stacks)
+{
+	int		i;
+	int		j;
+	t_item	*current;
+	t_item	*compare;
+
+	i = 1;
+	current = stacks->a->first;
+	while (i < stacks->a->size)
+	{
+		j = i;
+		compare = current->next;
+		while (j < stacks->a->size)
+		{
+			if (current->number == compare->number)
+				init_exit("Error", stacks, NULL);
+			compare = compare->next;
+			j++;
+		}
+		current = current->next;
+		i++;
+	}
+}
 
 void	position_update(t_stack *stack, char update)
 {

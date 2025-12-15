@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/15 15:32:53 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 15:38:38 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void		base_case(t_stacks *stacks, t_chunk chunk, \
 t_list **operations, int test_base);
 void		calc_chunk(t_chunk *chunk, int start, int end);
 int			calc_iteration(int first_a, int total);
+void		check_dup(t_stacks *stacks);
 int			check_ordered_not_sorted(t_stacks *stacks);
 int			check_solved(t_stacks *stacks);
 void		chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations);

@@ -14,7 +14,17 @@ ARG="4 67 3 87 23"; ./push_swap $ARG | wc -l
 ./push_swap 794 23 1 764 | ./checker_OS 794 23 1 764
 ```
 
-Bonus - 'make bonus' the project. The executable 'checker' takes unique numbers as arguments and subsequently waits on valid instructions on standard input. On completing the input by hitting CTRL-D the checker displays OK or KO depending on whether the provided instructions sorted the stack.
+Bonus - 'make bonus' the project. The executable 'checker' takes unique numbers as arguments and subsequently waits on valid instructions on standard input. On completing the input by hitting CTRL-D the checker displays OK or KO depending on whether the provided instructions sorted the stack. In case of unexpected input, duplicates or numbers exceeding MIN_INT or MAX_INT, 'error' is displayed on standard error.
+
+```
+./checker 3 2 1 0
+rra
+pb
+sa
+rra
+pb
+OK
+```
 
 **Resources**
 I was inspired by a blog post written by [Ulysse Gerkens](https://medium.com/@ulysse.gks/push-swap-in-less-than-4200-operations-c292f034f6c0 "Medium blog post"). It gave me the idea of working with essentially four stacks instead of two (top and bottom per stack). The idea of recursion originated from this blog post as well and the promise of a minimum amount of operations caught my attention.
