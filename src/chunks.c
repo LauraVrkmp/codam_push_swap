@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:37:59 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/14 19:46:26 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 10:17:05 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_list **operations, int iteration)
 		move_from_bottom_a(stacks, chunk, operations);
 	else
 		move_from_bottom_b(stacks, chunk, operations);
-	print_stacks(stacks);
+	//print_stacks(stacks);
 	iteration++;
 	chunk.division = DIV_HIGH;
 	chunk_sorting(stacks, chunk, operations, iteration);
@@ -50,7 +50,7 @@ void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations, int ite
 {
 	int	test_base;
 
-	if (chunk.iteration == 1)
+	if (chunk.iteration == 0)
 		calc_chunk(&chunk, 1, stacks->total);
 	else if (chunk.division == DIV_HIGH)
 		calc_chunk(&chunk, chunk.high_min, chunk.high_max);
@@ -61,7 +61,6 @@ void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations, int ite
 	chunk.iteration++;
 	if (chunk.iteration != 1)
 		chunk.location = determine_location(stacks, chunk);
-	ft_printf("low_min: %d, high_max: %d, stack a size: %d, chunk loc: %d\n", chunk.low_min, chunk.high_max, stacks->a->size, chunk.location);
 	test_base = test_chunk_size(stacks, chunk);
 	if (chunk.high_max - chunk.low_min == 0 || check_solved(stacks) || \
 (stacks->a->size <= 3 && !section_sorted(stacks, stacks->total - \
