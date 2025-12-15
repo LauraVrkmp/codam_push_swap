@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:19 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/14 19:30:56 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 15:32:53 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void		calc_chunk(t_chunk *chunk, int start, int end);
 int			calc_iteration(int first_a, int total);
 int			check_ordered_not_sorted(t_stacks *stacks);
 int			check_solved(t_stacks *stacks);
-void		chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations, int iteration);
+void		chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations);
 void		cleanup(t_stacks *stacks, t_list **operations);
 void		init_exit(char *message, t_stacks *stacks, t_list **operations);
 void		insert_item(t_stack *stack, t_item *item);

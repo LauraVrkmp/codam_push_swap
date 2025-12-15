@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/25 11:15:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/15 10:16:40 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 14:38:17 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ int	main(int argc, char **argv)
 		input_check_create(argc, argv, stacks);
 		check_dup(stacks);
 		assign_ranks(stacks);
-		//print_stacks(stacks);
 		solve(stacks, &operations);
-		//print_stacks(stacks);
 		print_operations(operations);
 		cleanup(stacks, &operations);
 	}

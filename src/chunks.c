@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:37:59 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/15 10:17:05 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 15:32:42 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_loc	determine_location(t_stacks *stacks, t_chunk chunk)
 }
 
 static void	moving_and_recursion(t_stacks *stacks, t_chunk chunk, \
-t_list **operations, int iteration)
+t_list **operations)
 {
 	if (chunk.location == TOP_A)
 		move_from_top_a(stacks, chunk, operations);
@@ -36,17 +36,15 @@ t_list **operations, int iteration)
 		move_from_bottom_a(stacks, chunk, operations);
 	else
 		move_from_bottom_b(stacks, chunk, operations);
-	//print_stacks(stacks);
-	iteration++;
 	chunk.division = DIV_HIGH;
-	chunk_sorting(stacks, chunk, operations, iteration);
+	chunk_sorting(stacks, chunk, operations);
 	chunk.division = DIV_MID;
-	chunk_sorting(stacks, chunk, operations, iteration);
+	chunk_sorting(stacks, chunk, operations);
 	chunk.division = DIV_LOW;
-	chunk_sorting(stacks, chunk, operations, iteration);
+	chunk_sorting(stacks, chunk, operations);
 }
 
-void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations, int iteration)
+void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations)
 {
 	int	test_base;
 
@@ -66,5 +64,5 @@ void	chunk_sorting(t_stacks *stacks, t_chunk chunk, t_list **operations, int ite
 (stacks->a->size <= 3 && !section_sorted(stacks, stacks->total - \
 stacks->a->size + 1, stacks->total, stacks->a->size - 1)))
 		return (base_case(stacks, chunk, operations, test_base));
-	moving_and_recursion(stacks, chunk, operations, iteration);
+	moving_and_recursion(stacks, chunk, operations);
 }

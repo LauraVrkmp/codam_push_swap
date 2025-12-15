@@ -6,7 +6,7 @@
 /*   By: laveerka <laveerka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/11/30 10:38:10 by laveerka      #+#    #+#                 */
-/*   Updated: 2025/12/14 19:45:56 by laveerka      ########   odam.nl         */
+/*   Updated: 2025/12/15 14:35:30 by laveerka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	move_from_top_b(t_stacks *stacks, t_chunk chunk, t_list **operations)
 	max_op = 0;
 	while (max_op < (chunk.high_max - chunk.low_min + 1) && stacks->b->size > 0)
 	{
-		/* rotate_to_order(stacks, operations);
+		rotate_to_order(stacks, operations);
 		if (stacks->a->last->rank + 1 == stacks->a->last->prev->rank && \
 stacks->a->last->rank + 2 == stacks->a->first->rank && section_sorted(\
 stacks, stacks->a->first->rank, 0, stacks->total - chunk.low_min + 1))
@@ -57,24 +57,7 @@ section_sorted(stacks, stacks->a->first->next->next->rank, stacks->total, \
 stacks->a->size - 1))
 			swap_stack(stacks, 'A', "1P", operations);
 		else
-			move_from_top_b_ext(stacks, chunk, operations, &max_op); */
-		if ((stacks->b->first->rank >= chunk.high_min && \
-	stacks->b->first->rank <= chunk.high_max) || \
-	(stacks->b->first->rank + 1 == stacks->a->first->rank && section_sorted(\
-	stacks, stacks->a->first->rank, stacks->total, stacks->a->size - 1)))
-			push_stack(stacks, "AP", operations);
-		else if (stacks->b->first->rank >= chunk.mid_min && \
-	stacks->b->first->rank <= chunk.mid_max)
-		{
-			push_stack(stacks, "AP", operations);
-			if (!section_sorted(stacks, stacks->a->first->rank, \
-	stacks->total, stacks->a->size - 1))
-				rotate_stack(stacks, 'A', "1P", operations);
-		}
-		else if (stacks->b->first->rank >= chunk.low_min && \
-	stacks->b->first->rank <= chunk.low_max && stacks->b->size > 2)
-			rotate_stack(stacks, 'B', "1P", operations);
-		max_op++;
+			move_from_top_b_ext(stacks, chunk, operations, &max_op);
 	}
 }
 
